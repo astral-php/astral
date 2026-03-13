@@ -1,0 +1,9 @@
+/vendor/
+/database/*.sqlite
+/.env
+/storage/logs/
+/storage/cache/
+/.phpunit.result.cache
+composer.lock
+SPEC.md
+prompts/*.md

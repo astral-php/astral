@@ -1,0 +1,94 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Point d'entrée de la console CLI Astral MVC.
+ *
+ * Usage :
+ *   php bin/console list
+ *
+ *   ── Scaffolding ─────────────────────────────────────────
+ *   php bin/console make:module                          ← mode interactif
+ *   php bin/console make:module Article                  ← tout générer
+ *   php bin/console make:module Article --api            ← contrôleur API
+ *   php bin/console make:module Article --no-migrate     ← sans migration
+ *   php bin/console make:model Article
+ *   php bin/console make:dao Article
+ *   php bin/console make:controller Article [--resource|--api]
+ *   php bin/console make:migration create_articles_table
+ *
+ *   ── Migrations ───────────────────────────────────────────
+ *   php bin/console migrate
+ *   php bin/console migrate:status
+ *   php bin/console migrate:rollback
+ *
+ *   ── Cache ────────────────────────────────────────────────
+ *   php bin/console cache:clear
+ *
+ * Pour ajouter une commande applicative :
+ *   1. Créer app/Console/MaCommande.php qui implémente CommandInterface
+ *   2. L'enregistrer ci-dessous via $console->register(...)
+ */
+
+define('BASE_PATH', dirname(__DIR__));
+
+require BASE_PATH . '/vendor/autoload.php';
+
+// Chargement du fichier .env (si présent)
+if (file_exists(BASE_PATH . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
+    $dotenv->safeLoad();
+}
+
+use Core\Console\Console;
+use Core\Console\Commands\ClearCacheCommand;
+use Core\Console\Commands\MakeControllerCommand;
+use Core\Console\Commands\MakeDaoCommand;
+use Core\Console\Commands\MakeMigrationCommand;
+use Core\Console\Commands\MakeModelCommand;
+use Core\Console\Commands\MakeModuleCommand;
+use Core\Console\Commands\MigrateCommand;
+use Core\Console\Commands\MigrateRollbackCommand;
+use Core\Console\Commands\MigrateStatusCommand;
+use Database\Connection;
+use Database\Migration\Migrator;
+
+$console = new Console(appName: 'Astral MVC Console');
+
+// -------------------------------------------------------------------------
+// Commandes intégrées du framework
+// -------------------------------------------------------------------------
+
+$console->register(new ClearCacheCommand(BASE_PATH . '/storage/cache'));
+
+// ── Scaffolding ──────────────────────────────────────────────────────────
+$makeMigration = new MakeMigrationCommand(BASE_PATH . '/database/migrations');
+
+$console->register(new MakeModelCommand(BASE_PATH . '/app/Models'));
+$console->register(new MakeDaoCommand(BASE_PATH . '/app/Dao', BASE_PATH . '/app/Models'));
+$console->register(new MakeControllerCommand(BASE_PATH . '/app/Controllers', BASE_PATH . '/app/Dao'));
+$console->register($makeMigration);
+$console->register(new MakeModuleCommand(BASE_PATH, $makeMigration));
+
+// Commandes de migration (nécessitent une connexion DB)
+try {
+    $dbConfig = require BASE_PATH . '/config/database.php';
+    $pdo      = Connection::getInstance($dbConfig);
+    $migrator = new Migrator($pdo, BASE_PATH . '/database/migrations');
+
+    $console->register(new MigrateCommand($migrator));
+    $console->register(new MigrateRollbackCommand($migrator));
+    $console->register(new MigrateStatusCommand($migrator));
+} catch (\Throwable $e) {
+    // DB non configurée : les commandes de migration ne sont pas disponibles
+    fwrite(STDERR, "\033[33m⚠ Commandes de migration indisponibles : " . $e->getMessage() . "\033[0m\n");
+}
+
+// -------------------------------------------------------------------------
+// Commandes applicatives — décommentez / ajoutez les vôtres ici
+// -------------------------------------------------------------------------
+// $console->register(new App\Console\SeedUsersCommand(BASE_PATH));
+
+exit($console->run($_SERVER['argv'] ?? []));
