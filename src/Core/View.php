@@ -54,6 +54,16 @@ final class View
     }
 
     /**
+     * Alias court pour renderPartial : inclut un partial depuis une vue ou le layout.
+     *
+     * @param  array<string, mixed> $data
+     */
+    public function partial(string $view, array $data = []): string
+    {
+        return $this->renderPartial($view, $data);
+    }
+
+    /**
      * Rend une vue partielle (sans layout) et retourne son HTML.
      *
      * @param  array<string, mixed> $data

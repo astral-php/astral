@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.x minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -96,6 +96,7 @@ astral-mvc/
 ├── .env.example            # Template à copier
 ├── tests/                  # Tests PHPUnit
 ├── views/
+│   ├── partials/          # Partials réutilisables (flash, field-error, pagination…)
 │   ├── auth/               # login.php, register.php, forgot-password…
 │   ├── docs/               # Documentation en ligne
 │   ├── errors/             # Pages d'erreur (403, 404, 500)
@@ -341,6 +342,39 @@ $router->group('', function (Router $r) {
     $r->post('/users/:id/delete', UserController::class, 'destroy');
 }, [CsrfMiddleware::class]);
 ```
+
+---
+
+### Partials (vues réutilisables)
+
+Le moteur de vues expose `renderPartial()` et un alias court `partial()` pour inclure des sous-vues (sans layout). La variable `$viewEngine` est partagée dans toutes les vues et le layout (nom dédié pour éviter tout conflit avec une donnée `view`), ce qui permet d’inclure des partials depuis n’importe quel template.
+
+**Convention :** placer les partials dans `views/partials/` (ex. `partials/flash.php`, `partials/field-error.php`).
+
+**Depuis une vue ou le layout :**
+
+```php
+<?= $viewEngine->partial('partials/flash') ?>
+<?= $viewEngine->partial('partials/field-error', ['field' => 'email', 'errors' => $errors ?? []]) ?>
+<?= $viewEngine->partial('partials/pagination', ['current' => $current, 'pages' => $pages, 'baseUrl' => '/users']) ?>
+```
+
+**Partials fournis (Tailwind CSS) :**
+
+| Partial | Rôle | Variables |
+|--------|------|-----------|
+| `partials/flash` | Messages flash success/error | `$session` (partagée) |
+| `partials/validation-errors` | Liste globale d’erreurs de validation | `$errors` (optionnel) |
+| `partials/field-error` | Message d’erreur sous un champ | `$field`, `$errors` |
+| `partials/pagination` | Liens Précédent / numéros / Suivant | `$current`, `$pages`, `$baseUrl`, `$mode` (optionnel) |
+
+**Pagination — 3 modes** (`$mode` optionnel, défaut `numbers`) : **`simple`** (Précédent / Suivant), **`numbers`** (toutes les pages), **`elastic`** (fenêtre glissante 1 … 5 6 7 … 42 pour gros volumes).
+
+```php
+<?= $viewEngine->partial('partials/pagination', ['current' => $current, 'pages' => $pages, 'baseUrl' => '/users', 'mode' => 'elastic']) ?>
+```
+
+En contrôleur, `$this->view->renderPartial('nom/vue', $data)` retourne le HTML sans layout (utile pour des réponses AJAX ou fragments). Dans les vues, utilisez toujours `$viewEngine->partial(...)` pour inclure un partial.
 
 ---
 

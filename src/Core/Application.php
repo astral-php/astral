@@ -70,6 +70,7 @@ final class Application
         $view->share('session', $session);
         $view->share('csrf', $container->make(CsrfGuard::class));
         $view->share('auth', $container->make(Auth::class));
+        $view->share('viewEngine', $view);
 
         $request = $container->make(Request::class);
         $router  = new Router(request: $request, container: $container);

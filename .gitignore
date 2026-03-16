@@ -6,4 +6,6 @@
 /.phpunit.result.cache
 composer.lock
 SPEC.md
+astral-components.md
 prompts/*.md
+/components/

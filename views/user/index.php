@@ -73,31 +73,5 @@
         </table>
     </div>
 
-    <!-- Pagination -->
-    <?php if ($pages > 1): ?>
-        <div class="mt-6 flex items-center justify-between text-sm text-gray-500">
-            <span>Page <?= $current ?> sur <?= $pages ?></span>
-            <div class="flex gap-1">
-                <?php if ($current > 1): ?>
-                    <a href="/users?page=<?= $current - 1 ?>"
-                       class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 transition font-medium">&larr;</a>
-                <?php endif ?>
-
-                <?php for ($i = 1; $i <= $pages; $i++): ?>
-                    <a href="/users?page=<?= $i ?>"
-                       class="px-3 py-1.5 rounded-lg text-sm font-medium transition
-                              <?= $i === $current
-                                  ? 'bg-indigo-600 text-white shadow'
-                                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200' ?>">
-                        <?= $i ?>
-                    </a>
-                <?php endfor ?>
-
-                <?php if ($current < $pages): ?>
-                    <a href="/users?page=<?= $current + 1 ?>"
-                       class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 transition font-medium">&rarr;</a>
-                <?php endif ?>
-            </div>
-        </div>
-    <?php endif ?>
+    <?= $viewEngine->partial('partials/pagination', ['current' => $current, 'pages' => $pages, 'baseUrl' => '/users']) ?>
 <?php endif ?>

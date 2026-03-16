@@ -326,8 +326,27 @@ CODE) ?>
 <?php endforeach ?>
 CODE) ?>
             <p class="text-gray-500 text-sm mt-3">
-                Dans le layout, les variables globales <code>$auth</code>, <code>$csrf</code>, <code>$session</code> sont injectées automatiquement.
+                Dans le layout, les variables globales <code>$auth</code>, <code>$csrf</code>, <code>$session</code>, <code>$viewEngine</code> sont injectées automatiquement.
             </p>
+
+            <h3 class="font-semibold text-gray-800 mt-6 mb-2">Partials (vues réutilisables)</h3>
+            <p class="text-gray-600 mb-2">
+                <code>renderPartial()</code> et l’alias <code>partial()</code> permettent d’inclure une vue sans layout. La variable <code>$viewEngine</code> est disponible dans toutes les vues (nom dédié pour éviter tout conflit avec une donnée <code>view</code>) : utilisez <code>$viewEngine->partial('partials/nom', $data)</code> pour insérer un bloc réutilisable (flash, erreur de champ, pagination, etc.).
+            </p>
+            <p class="text-gray-600 mb-2">Convention : <code>views/partials/</code>. Partials fournis (Tailwind CSS) :</p>
+            <ul class="list-disc list-inside text-gray-600 text-sm mb-3 space-y-0.5">
+                <li><code>partials/flash</code> — messages flash success/error (utilise <code>$session</code>)</li>
+                <li><code>partials/validation-errors</code> — liste globale d’erreurs (<code>$errors</code>)</li>
+                <li><code>partials/field-error</code> — message sous un champ (<code>$field</code>, <code>$errors</code>)</li>
+                <li><code>partials/pagination</code> — liens de pagination (<code>$current</code>, <code>$pages</code>, <code>$baseUrl</code>, <code>$mode</code> optionnel : <code>simple</code>, <code>numbers</code>, <code>elastic</code>)</li>
+            </ul>
+            <?php codeBlock('php', <<<'CODE'
+<!-- Dans une vue ou le layout -->
+<?= $viewEngine->partial('partials/flash') ?>
+<?= $viewEngine->partial('partials/field-error', ['field' => 'email', 'errors' => $errors ?? []]) ?>
+<?= $viewEngine->partial('partials/pagination', ['current' => $current, 'pages' => $pages, 'baseUrl' => '/users', 'mode' => 'numbers']) ?>
+<!-- mode: 'simple' (Précédent/Suivant), 'numbers' (toutes les pages), 'elastic' (1 … 5 6 7 … 42) -->
+CODE) ?>
         </section>
 
         <!-- ─────────────────── REQUEST ─────────────────── -->
@@ -396,7 +415,7 @@ if ($session->hasFlash('success')) {
 }
 CODE) ?>
             <p class="text-gray-500 text-sm mt-3">
-                Les flash <code>success</code> et <code>error</code> sont affichés automatiquement par le layout principal.
+                Les flash <code>success</code> et <code>error</code> sont affichés par le layout via le partial <code>partials/flash</code>.
             </p>
         </section>
 

@@ -7,6 +7,27 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.1.0] — 2026-03-15
+
+### Ajouté
+
+#### Vues et partials
+- **Partials réutilisables** — `View::renderPartial()` et alias `View::partial()` pour inclure des sous-vues sans layout. Variable partagée `$viewEngine` dans toutes les vues et le layout pour éviter tout conflit avec une donnée `view`.
+- **Partials fournis** (Tailwind CSS) dans `views/partials/` : `flash` (messages success/error), `validation-errors` (liste globale), `field-error` (message sous un champ), `pagination` (liens Précédent / numéros / Suivant).
+- **Pagination : 3 modes d'affichage** — `simple` (Précédent / Suivant), `numbers` (toutes les pages), `elastic` (fenêtre glissante avec ellipses pour gros volumes). Variable optionnelle `$mode` dans le partial `partials/pagination`.
+- Layout principal et vues (login, user/index) utilisent ces partials ; documentation README et doc web (section Partials).
+
+#### Tests
+- **AbstractDaoRelationsTest** — tests d’intégration pour l’ORM léger (`hasMany`, `belongsTo`, `findWithArticles`, `findWithCategory`) avec SQLite en mémoire.
+
+### Modifié
+- Affichage de la version sur la page d’accueil : issue de la config `APP_VERSION` (fallback 1.1.0) au lieu de `PHP_VERSION`.
+
+### Corrigé
+- Conflit de variable `$view` en vue : si des données passaient une clé `view`, elle écrasait l’instance du moteur de vues. Remplacement par la variable dédiée `$viewEngine` partagée globalement.
+
+---
+
 ## [1.0.0] — 2026-03-11
 
 Première publication publique d'Astral MVC — micro-framework PHP 8.x minimaliste.
