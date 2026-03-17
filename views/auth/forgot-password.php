@@ -30,6 +30,7 @@
             <form method="POST" action="/forgot-password" class="space-y-5">
 
                 <?= $csrf->field() ?>
+                <?= $viewEngine->partial('partials/validation-errors', ['errors' => $errors ?? []]) ?>
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse e-mail</label>
@@ -38,9 +39,7 @@
                            class="w-full border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition
                                   <?= !empty($errors['email']) ? 'border-red-400 bg-red-50' : 'border-gray-200' ?>"
                            placeholder="vous@exemple.com">
-                    <?php if (!empty($errors['email'])): ?>
-                        <p class="mt-1 text-xs text-red-600"><?= htmlspecialchars($errors['email'][0] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
-                    <?php endif ?>
+                    <?= $viewEngine->partial('partials/field-error', ['field' => 'email', 'errors' => $errors ?? []]) ?>
                 </div>
 
                 <button type="submit"

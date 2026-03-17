@@ -7,6 +7,19 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.1.1] — 2026-03-16
+
+### Modifié
+
+- Facteur commun de formulaires : toutes les vues de formulaires (connexion, inscription, mot de passe oublié, réinitialisation, profil, création d’utilisateur) utilisent désormais les partials `partials/validation-errors` et `partials/field-error`, assurant une UX cohérente et centralisée.
+- Documentation (README et doc web) complétée pour mettre en avant l’usage des partials et les patterns de formulaires.
+
+### Corrigé
+
+- Alignement mineur de la documentation avec le comportement réel des vues (affichage des erreurs et pagination avancée).
+
+---
+
 ## [1.1.0] — 2026-03-15
 
 ### Ajouté

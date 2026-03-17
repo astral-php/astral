@@ -86,6 +86,9 @@
                     Son objectif : vous donner <strong class="text-white">tous les outils essentiels</strong> d'une vraie application web
                     (routeur, DI, auth, validateur, mailer, cache, CLI…) dans une architecture
                     simple à comprendre, à étendre et à tester.
+                    <span class="block mt-1 text-xs text-indigo-200">
+                        Documentation à jour pour Astral MVC v1.1.1 (partials de formulaires et pagination avancée).
+                    </span>
                 </p>
             </div>
 
