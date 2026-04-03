@@ -1,13 +1,26 @@
 # Astral MVC — Framework PHP 8.x minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.1.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.2-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
 Micro-framework MVC orienté objet, compatible PHP 8.0 → 8.4.
 Dépendances de production : `vlucas/phpdotenv`, `phpmailer/phpmailer`.
 Minimaliste par design, puissant par convention.
+
+---
+
+## Écosystème Composer (optionnel)
+
+Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin.
+
+| Package | Rôle | Dépôt |
+|--------|------|--------|
+| `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [astral-php/astral-form](https://github.com/astral-php/astral-form) |
+| `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [astral-php/astral-vite](https://github.com/astral-php/astral-vite) |
+
+Organisation GitHub : [github.com/astral-php](https://github.com/astral-php).
 
 ---
 

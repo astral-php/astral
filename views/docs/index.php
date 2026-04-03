@@ -38,6 +38,7 @@
                     'api'         => 'API REST JSON',
                     'new-module'  => 'Créer un module',
                     'from-scratch'=> 'Projet from scratch',
+                    'ecosystem'   => 'Écosystème Composer',
                     'evolutions'  => 'Évolutions futures',
                 ];
                 foreach ($sections as $id => $label):
@@ -87,7 +88,7 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC v1.1.1 (partials de formulaires et pagination avancée).
+                        Documentation à jour pour Astral MVC v1.1.2 (écosystème Composer : astral-form, astral-vite).
                     </span>
                 </p>
             </div>
@@ -1881,6 +1882,46 @@ CODE) ?>
             </div>
         </section>
 
+        <!-- ─────────────────── ÉCOSYSTÈME COMPOSER ─────────────────── -->
+        <section id="ecosystem">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Écosystème Composer (optionnel)</h2>
+            <p class="text-gray-600 text-sm mb-4">
+                Le cœur d’Astral MVC reste minimal (voir <code>composer.json</code> du framework).
+                Des packages officiels sous l’organisation
+                <a href="https://github.com/astral-php" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">github.com/astral-php</a>
+                complètent le projet <strong>uniquement si vous les installez</strong>.
+            </p>
+            <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-gray-50 text-left text-gray-600">
+                        <tr>
+                            <th class="px-4 py-3 font-semibold">Package</th>
+                            <th class="px-4 py-3 font-semibold">Rôle</th>
+                            <th class="px-4 py-3 font-semibold">Dépôt</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 bg-white">
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-form</td>
+                            <td class="px-4 py-3 text-gray-600"><code>FormBuilder</code>, ServiceProvider, variable <code>$form</code> dans les vues, erreurs <code>Validator</code>.</td>
+                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-form" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-form</a></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-vite</td>
+                            <td class="px-4 py-3 text-gray-600">Vite + Tailwind, <code>$vite-&gt;tags()</code> dans le layout, stubs d’intégration.</td>
+                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-vite" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-vite</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-gray-500 text-xs mt-4">
+                Installation typique : <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-form</code>
+                ou <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-vite</code>,
+                puis enregistrement du <code>ServiceProvider</code> du package dans <code>config/dependencies.php</code>
+                (voir le README de chaque dépôt).
+            </p>
+        </section>
+
         <!-- ─────────────────── EVOLUTIONS ─────────────────── -->
         <section id="evolutions">
             <h2 class="text-2xl font-bold text-gray-900 mb-2">Évolutions &amp; Backlog</h2>
@@ -1899,13 +1940,14 @@ CODE) ?>
                     ['✅', 'Events & Listeners',              'EventDispatcher synchrone : listen (classe/callable), dispatch, subscribe. UserRegistered → SendWelcomeEmail + LogUserActivity. UserLoggedIn → LogUserActivity.',                                         true,  'done'],
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
+                    ['✅', 'Composants astral-form / astral-vite', 'Packages optionnels Packagist : formulaires et pipeline Vite + Tailwind. Organisation [astral-php](https://github.com/astral-php).',                                                                                    true,  'done'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
                     ['🔒', 'OAuth / Social login',           'Connexion via Google/GitHub grâce à un adapter léger (ex. league/oauth2-client).',                                                                                                                       false, 'basse'],
                     ['🔌', 'WebSockets',                     'Temps réel via Ratchet ou Swoole — sort volontairement du minimalisme du framework.',                                                                                                                    false, 'basse'],
                     ['✅', 'ORM léger — Relations',           'hasMany() + belongsTo() dans AbstractDao. Exemples : CategoryDao, ArticleDao (has-many + belongs-to). Migrations fournies. Philosophie : pas de lazy-loading, relations explicites.',      true,  'done'],
-                    ['⚡', 'Assets pipeline',               'Compilation CSS/JS (Vite) intégrée au workflow de développement.',                                                                                                                                        false, 'basse'],
+                    ['✅', 'Assets pipeline (Vite)',        'Via le package optionnel astral-vite : Vite, Tailwind, manifest, stubs.',                                                                                                                                     true,  'done'],
                 ];
 
                 $priorityBadge = [

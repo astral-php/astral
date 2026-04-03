@@ -7,6 +7,18 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.1.2] — 2026-04-03
+
+### Ajouté
+
+- Documentation de l’**écosystème Composer** [astral-php](https://github.com/astral-php) : packages optionnels **[astral-form](https://github.com/astral-php/astral-form)** (formulaires, `FormBuilder`) et **[astral-vite](https://github.com/astral-php/astral-vite)** (Vite + Tailwind, intégration via `ServiceProvider` et variable `$vite`).
+
+### Modifié
+
+- README, documentation en ligne (`/docs`), `astral-plan.md` : section dédiée aux composants publiés et liens vers les dépôts GitHub.
+
+---
+
 ## [1.1.1] — 2026-03-16
 
 ### Modifié

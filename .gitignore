@@ -7,5 +7,8 @@
 composer.lock
 SPEC.md
 astral-components.md
+astral-plan.md
 prompts/*.md
-/components/
+/components/*
+!/components/astral-form/
+!/components/astral-form/**
