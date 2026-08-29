@@ -8,6 +8,7 @@ composer.lock
 SPEC.md
 astral-components.md
 astral-plan.md
+.vscode
 prompts/*.md
 /components/*
 !/components/astral-form/

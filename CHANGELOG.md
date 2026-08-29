@@ -7,6 +7,27 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.1.3] — 2026-08-29
+
+### Changements incompatibles
+
+- **PHP minimum porté de 8.0 à 8.1** (`composer.json` : `"php": "^8.1"`). Compatible **8.1 → 8.5**. Les projets encore en PHP 8.0 doivent migrer avant de mettre à jour.
+
+### Ajouté
+
+- **`Core\ErrorHandler`** — gestionnaire global (exceptions, erreurs PHP, fatals) avec pages 403 / 404 / 500 ; détails techniques uniquement si `APP_DEBUG=true`.
+- **`Core\Dumper\Dumper`** + helpers **`dump()`** / **`dd()`** (HTML + CLI), chargés via `autoload.files`.
+- Vue **500** enrichie (stack trace en debug), vues 403 / 404 compatibles debug.
+- Tests unitaires `ErrorHandlerTest` et `DumperTest`.
+
+### Modifié
+
+- `Application` délègue le rendu HTML des erreurs à `ErrorHandler` ; les routes `/api/*` conservent les réponses JSON.
+- `FrameworkServiceProvider` enregistre et active `ErrorHandler`.
+- Documentation (README, `/docs`, SPEC, plan, composants) alignée sur PHP 8.1–8.5 et la v1.1.3.
+
+---
+
 ## [1.1.2] — 2026-04-03
 
 ### Ajouté

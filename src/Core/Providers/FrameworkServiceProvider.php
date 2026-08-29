@@ -11,6 +11,7 @@ use Core\Auth\Middleware\GuestMiddleware;
 use Core\Cache;
 use Core\Container;
 use Core\CsrfGuard;
+use Core\ErrorHandler;
 use Core\Events\EventDispatcher;
 use Core\Logger;
 use Core\Middleware\CsrfMiddleware;
@@ -21,7 +22,7 @@ use Core\View;
 
 /**
  * Enregistre tous les services fondamentaux du framework :
- * Session, Logger, Cache, Request, View, CsrfGuard, CsrfMiddleware.
+ * Session, Logger, Cache, Request, View, ErrorHandler, CsrfGuard, CsrfMiddleware.
  */
 final class FrameworkServiceProvider implements ServiceProviderInterface
 {
@@ -36,6 +37,20 @@ final class FrameworkServiceProvider implements ServiceProviderInterface
         $container->singleton(Request::class, fn() => new Request());
 
         $container->singleton(View::class, fn() => new View(basePath: BASE_PATH));
+
+        $container->singleton(
+            ErrorHandler::class,
+            function () use ($container, $appConfig): ErrorHandler {
+                $handler = new ErrorHandler(
+                    logger: $container->make(Logger::class),
+                    debug: (bool) ($appConfig['debug'] ?? false),
+                    view: $container->make(View::class),
+                );
+                $handler->register();
+
+                return $handler;
+            },
+        );
 
         $container->singleton(
             CsrfGuard::class,

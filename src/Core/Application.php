@@ -22,8 +22,9 @@ use Throwable;
  *   4. Conteneur DI       — via config/dependencies.php
  *   5. Session            — démarrée avant tout rendu
  *   6. Partages de vue    — $session, $csrf et $auth disponibles dans toutes les vues
- *   7. Routeur            — via config/routes.php
- *   8. Dispatch           — résolution + pipeline middleware + contrôleur
+ *   7. ErrorHandler       — handlers PHP globaux (erreurs, fatals, exceptions hors API)
+ *   8. Routeur            — via config/routes.php
+ *   9. Dispatch           — résolution + pipeline middleware + contrôleur
  *
  * Seule la constante BASE_PATH doit être définie avant d'appeler run().
  */
@@ -72,6 +73,9 @@ final class Application
         $view->share('auth', $container->make(Auth::class));
         $view->share('viewEngine', $view);
 
+        // Active set_exception_handler / set_error_handler / shutdown
+        $errorHandler = $container->make(ErrorHandler::class);
+
         $request = $container->make(Request::class);
         $router  = new Router(request: $request, container: $container);
         $this->loadRoutes($router);
@@ -80,18 +84,15 @@ final class Application
 
         try {
             $router->dispatch();
-        } catch (CsrfException | AuthorizationException $e) {
-            $isApiRequest
-                ? ApiResponse::forbidden($e->getMessage())->send()
-                : $this->handleForbidden($e, $view);
-        } catch (NotFoundException $e) {
-            $isApiRequest
-                ? ApiResponse::notFound($e->getMessage())->send()
-                : $this->handleNotFound($e, $view);
         } catch (Throwable $e) {
-            $isApiRequest
-                ? $this->handleApiServerError($e)
-                : $this->handleServerError($e, $view);
+            // Les routes API conservent des réponses JSON structurées.
+            // Le HTML (et le reste) délègue à ErrorHandler.
+            if ($isApiRequest) {
+                $this->handleApiException($e);
+                return;
+            }
+
+            $errorHandler->handleException($e);
         }
     }
 
@@ -116,7 +117,7 @@ final class Application
         date_default_timezone_set((string) ($config['timezone'] ?? 'UTC'));
 
         if ($config['debug'] ?? false) {
-            ini_set('display_errors', '1');
+            ini_set('display_errors', '0'); // ErrorHandler affiche les détails
             error_reporting(E_ALL);
         } else {
             ini_set('display_errors', '0');
@@ -174,30 +175,21 @@ final class Application
     }
 
     // -------------------------------------------------------------------------
-    // Gestion des erreurs HTTP
+    // Gestion des erreurs API (JSON)
     // -------------------------------------------------------------------------
 
-    private function handleForbidden(Throwable $e, View $view): void
+    private function handleApiException(Throwable $e): void
     {
-        http_response_code(403);
-        $this->logger->warning('CSRF: ' . $e->getMessage());
-        echo $view->render('errors/403', [
-            'title'   => '403 — Accès refusé',
-            'message' => $e->getMessage(),
-        ]);
-    }
+        if ($e instanceof NotFoundException) {
+            ApiResponse::notFound($e->getMessage())->send();
+            return;
+        }
 
-    private function handleNotFound(NotFoundException $e, View $view): void
-    {
-        http_response_code(404);
-        echo $view->render('errors/404', [
-            'title'   => '404 — Page introuvable',
-            'message' => $e->getMessage(),
-        ]);
-    }
+        if ($e instanceof AuthorizationException || $e instanceof CsrfException) {
+            ApiResponse::forbidden($e->getMessage())->send();
+            return;
+        }
 
-    private function handleApiServerError(Throwable $e): void
-    {
         $this->logger->error($e->getMessage(), [
             'class' => get_class($e),
             'file'  => $e->getFile(),
@@ -209,29 +201,5 @@ final class Application
             : 'Erreur interne du serveur.';
 
         ApiResponse::error('SERVER_ERROR', $message, 500)->send();
-    }
-
-    private function handleServerError(Throwable $e, View $view): void
-    {
-        http_response_code(500);
-
-        $this->logger->error($e->getMessage(), [
-            'class' => get_class($e),
-            'file'  => $e->getFile(),
-            'line'  => $e->getLine(),
-        ]);
-
-        if ($this->appConfig['debug'] ?? false) {
-            echo '<pre style="background:#1e1e2e;color:#cdd6f4;padding:2rem;font-size:13px;border-radius:8px;margin:2rem;line-height:1.6">';
-            echo '<strong style="color:#f38ba8">⚠ ' . get_class($e) . '</strong>' . "\n\n";
-            echo htmlspecialchars($e->getMessage(), ENT_QUOTES) . "\n\n";
-            echo htmlspecialchars($e->getTraceAsString(), ENT_QUOTES);
-            echo '</pre>';
-        } else {
-            echo $view->render('errors/500', [
-                'title'   => 'Erreur serveur',
-                'message' => 'Une erreur interne est survenue.',
-            ]);
-        }
     }
 }

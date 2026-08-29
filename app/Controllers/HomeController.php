@@ -29,7 +29,7 @@ final class HomeController extends AbstractController
     {
         return $this->render('home/index', [
             'title'    => 'Astral MVC',
-            'message'  => 'Framework PHP 8.x minimaliste avec DI, migrations, scaffolding, events et auth prête à l’emploi.',
+            'message'  => 'Framework PHP 8.1+ minimaliste avec DI, migrations, scaffolding, events, error handler et auth prête à l’emploi.',
             'version'  => $this->version,
             'hasUsers' => $this->userDao->count() > 0,
         ]);

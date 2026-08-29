@@ -1,12 +1,12 @@
 {
     "name": "astral-php/astral",
-    "description": "Astral MVC — Framework PHP 8.x minimaliste, moderne et orienté objet",
+    "description": "Astral MVC — Framework PHP 8.1+ minimaliste, moderne et orienté objet",
     "type": "project",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "license": "MIT",
     "keywords": ["php", "mvc", "framework", "microframework", "di", "psr"],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "vlucas/phpdotenv": "^5.6",
         "phpmailer/phpmailer": "^7.0"
     },
@@ -19,7 +19,10 @@
             "Core\\": "src/Core/",
             "Database\\": "src/Database/",
             "Controller\\": "src/Controller/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

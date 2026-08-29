@@ -1,13 +1,15 @@
-# Astral MVC — Framework PHP 8.x minimaliste
+# Astral MVC — Framework PHP 8.1+ minimaliste
 
-[![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.1.2-blue)](CHANGELOG.md)
+[![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
+[![Version](https://img.shields.io/badge/version-1.1.3-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
-Micro-framework MVC orienté objet, compatible PHP 8.0 → 8.4.
+Micro-framework MVC orienté objet, compatible **PHP 8.1 → 8.5**.
 Dépendances de production : `vlucas/phpdotenv`, `phpmailer/phpmailer`.
 Minimaliste par design, puissant par convention.
+
+**Prérequis :** PHP **≥ 8.1** (recommandé : 8.2+ / 8.3+ / 8.4 / 8.5).
 
 ---
 
@@ -47,12 +49,15 @@ astral-mvc/
 │   ├── .htaccess           # Réécriture Apache
 │   └── index.php           # Bootstrap minimal (ne pas modifier)
 ├── src/
+│   ├── helpers.php                # dump() / dd() (autoload Composer files)
 │   ├── Core/
 │   │   ├── Application.php        # Chef d'orchestre du démarrage
 │   │   ├── Cache.php              # Cache fichier (TTL, remember, flush)
+│   │   ├── ErrorHandler.php       # Handlers globaux + pages d'erreur
+│   │   ├── Dumper/Dumper.php      # Moteur dump() / dd()
 │   │   ├── ServiceProviderInterface.php  # Contrat des providers
 │   │   ├── Providers/
-│   │   │   ├── FrameworkServiceProvider.php  # Session, Logger, Cache, View…
+│   │   │   ├── FrameworkServiceProvider.php  # Session, Logger, Cache, View, ErrorHandler…
 │   │   │   └── DatabaseServiceProvider.php   # PDO
 │   │   ├── Container.php          # Conteneur DI (autowiring + singletons)
 │   │   ├── CsrfGuard.php          # Protection CSRF (token de session)
@@ -125,10 +130,14 @@ astral-mvc/
 
 ## Installation
 
+**Prérequis :** PHP **8.1** ou supérieur (8.1 → 8.5).
+
 ```bash
 composer install
 cp .env.example .env   # puis adaptez les valeurs
 ```
+
+Vérifiez notamment `APP_DEBUG=true` en développement (pages d'erreur détaillées + `dump()`).
 
 ## Démarrage rapide (Laragon / Apache)
 
@@ -248,14 +257,15 @@ public/index.php
     └── Application::run()
             ├── loadDotEnv()        — charge .env via vlucas/phpdotenv
             ├── Logger              — disponible dès le début
-            ├── bootEnvironment()   — timezone, affichage d'erreurs
+            ├── bootEnvironment()   — timezone, error_reporting
             ├── ensureDatabase()    — crée le dossier SQLite si absent
             ├── loadDependencies()  ← config/dependencies.php
+            │       └── ErrorHandler::register()  — via FrameworkServiceProvider
             ├── Session::start()    — avant tout rendu
-            ├── View::share()       — $session et $csrf dans toutes les vues
+            ├── View::share()       — $session, $csrf, $auth dans toutes les vues
             ├── loadRoutes()        ← config/routes.php
             └── dispatch()          — pipeline middleware → contrôleur
-                                       → Response::send()
+                                       → HTML : ErrorHandler | API : JSON
 ```
 
 
@@ -268,11 +278,34 @@ public/index.php
 | `config/database.php`                  | Changer de driver ou de base de données        |
 
 
-> `public/index.php`, `src/Core/Application.php` et les providers `src/Core/Providers/` ne sont **jamais** modifiés.
+> `public/index.php` n'est **jamais** modifié par l'application. Les providers cœur (`FrameworkServiceProvider`) ne le sont que pour étendre le framework lui-même.
 
 ---
 
 ## Fonctionnalités
+
+### Debug & erreurs (`ErrorHandler`, `dump`, `dd`)
+
+Zéro dépendance. Activé automatiquement au démarrage.
+
+```php
+// Inspecter une variable (HTML ou CLI)
+dump($user, $request->body);
+
+// Dump and die — affiche et stoppe le script
+dd($payload);
+```
+
+| Situation | Comportement |
+|-----------|--------------|
+| `NotFoundException` | Page 404 (HTML) — pas de log |
+| `AuthorizationException` / `CsrfException` | Page 403 (CSRF logué en warning) |
+| Autre `Throwable` | Log ERROR + page 500 |
+| Erreurs PHP / fatals | Converties / capturées → 500 |
+| Routes `/api/*` | Réponses JSON (`ApiResponse`) — hors rendu HTML |
+
+Avec `APP_DEBUG=true`, la page 500 affiche classe, message, fichier et stack trace.
+Avec `APP_DEBUG=false`, message générique uniquement (aucun détail technique exposé).
 
 ### Session & Messages flash
 
@@ -1414,15 +1447,16 @@ $router->group('', function (Router $r): void {
 
 ---
 
-## Fonctionnalités PHP 8.x utilisées
+## Fonctionnalités PHP 8.1+ utilisées
 
 - `declare(strict_types=1)` partout
-- Constructor Property Promotion (`public function __construct(PDO $pdo)`)
+- Constructor Property Promotion + propriétés `readonly` (ex. `ErrorHandler`)
 - Named Arguments (`findAll(orderBy: 'name')`)
-- `match` expression dans `Connection.php` et `Validator.php`
+- `match` expression
 - Union types (`string|array`)
+- First-class callables (`$this->handleError(...)`)
 - `str_contains()`, `str_starts_with()`
 - `fn()` arrow functions
 - `mixed` type hint
-- `never` return type (PHP 8.1, utilisé optionnellement)
+- `never` return type (`dd()`)
 

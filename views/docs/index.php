@@ -29,6 +29,7 @@
                     'events'      => 'Events & Listeners',
                     'mailer'      => 'Mailer',
                     'logger'      => 'Logger',
+                    'errors'      => 'Debug & erreurs',
                     'cache'       => 'Cache',
                     'console'     => 'Console CLI',
                     'providers'   => 'Service Providers',
@@ -79,16 +80,16 @@
                     <span class="text-3xl font-mono font-bold bg-white/20 px-3 py-1 rounded-lg">✦</span>
                     <div>
                         <h1 class="text-3xl font-bold">Astral MVC</h1>
-                        <p class="text-indigo-200 text-sm">Framework PHP 8.x &mdash; Minimaliste &bull; Moderne &bull; Orienté objet</p>
+                        <p class="text-indigo-200 text-sm">Framework PHP 8.1+ &mdash; Minimaliste &bull; Moderne &bull; Orienté objet</p>
                     </div>
                 </div>
                 <p class="text-indigo-100 leading-relaxed">
-                    Astral MVC est un micro-framework PHP 8.x sans dépendance externe inutile.
+                    Astral MVC est un micro-framework PHP 8.1+ (compatible <strong class="text-white">8.1 → 8.5</strong>) sans dépendance externe inutile.
                     Son objectif : vous donner <strong class="text-white">tous les outils essentiels</strong> d'une vraie application web
-                    (routeur, DI, auth, validateur, mailer, cache, CLI…) dans une architecture
+                    (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC v1.1.2 (écosystème Composer : astral-form, astral-vite).
+                        Documentation à jour pour Astral MVC v1.1.3 (ErrorHandler, dump/dd — écosystème : astral-form, astral-vite).
                     </span>
                 </p>
             </div>
@@ -127,6 +128,8 @@ astral-mvc/
 │   │   ├── Application.php          # Orchestrateur principal
 │   │   ├── Auth/                    # Auth, Role, Middleware (Auth/Admin/Guest)
 │   │   ├── Cache.php
+│   │   ├── ErrorHandler.php         # Handlers globaux + pages d'erreur
+│   │   ├── Dumper/Dumper.php        # Moteur dump() / dd()
 │   │   ├── Console/
 │   │   │   ├── Console.php          # Dispatcher + helpers ANSI
 │   │   │   ├── CommandInterface.php
@@ -150,6 +153,7 @@ astral-mvc/
 │   │   ├── Session.php
 │   │   ├── Validator.php
 │   │   └── View.php
+│   └── helpers.php                  # dump() / dd() (autoload Composer)
 │   └── Database/
 │       ├── AbstractDao.php
 │       ├── Connection.php           # Singleton PDO (SQLite / MySQL)
@@ -1060,6 +1064,56 @@ $logger->error('PDOException', ['message' => $e->getMessage()]);
 CODE) ?>
         </section>
 
+        <!-- ─────────────────── DEBUG & ERREURS ─────────────────── -->
+        <section id="errors">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Debug &amp; erreurs</h2>
+            <p class="text-gray-600 mb-4">
+                Depuis la <strong>v1.1.3</strong>, le core inclut <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">Core\ErrorHandler</code>
+                et les helpers <code>dump()</code> / <code>dd()</code> — zéro dépendance, activés automatiquement.
+            </p>
+            <h3 class="font-semibold text-gray-800 mt-4 mb-2">Inspecter une variable</h3>
+            <?php codeBlock('php', <<<'CODE'
+dump($user, $request->body);  // affiche et continue
+dd($payload);                 // affiche et stoppe (Dump and Die)
+CODE) ?>
+            <h3 class="font-semibold text-gray-800 mt-5 mb-2">Comportement des erreurs</h3>
+            <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-sm text-sm">
+                <table class="min-w-full">
+                    <thead class="bg-gray-50 text-left text-gray-600">
+                        <tr>
+                            <th class="px-4 py-2 font-semibold">Situation</th>
+                            <th class="px-4 py-2 font-semibold">HTML</th>
+                            <th class="px-4 py-2 font-semibold">API <code>/api/*</code></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 bg-white text-gray-600">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">NotFoundException</td>
+                            <td class="px-4 py-2">404</td>
+                            <td class="px-4 py-2">JSON 404</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Authorization / Csrf</td>
+                            <td class="px-4 py-2">403</td>
+                            <td class="px-4 py-2">JSON 403</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Autre Throwable / fatal</td>
+                            <td class="px-4 py-2">500 (+ log)</td>
+                            <td class="px-4 py-2">JSON 500 (+ log)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-gray-500 text-sm mt-4">
+                Avec <code class="bg-gray-100 px-1 rounded">APP_DEBUG=true</code>, la page 500 affiche classe, message, fichier et stack trace.
+                En production (<code>APP_DEBUG=false</code>), message générique uniquement.
+            </p>
+            <p class="text-gray-500 text-xs mt-2">
+                Prérequis PHP : <strong>8.1 → 8.5</strong>.
+            </p>
+        </section>
+
         <!-- ─────────────────── CACHE ─────────────────── -->
         <section id="cache">
             <h2 class="text-2xl font-bold text-gray-900 mb-2">Cache fichier</h2>
@@ -1183,8 +1237,9 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
+APP_VERSION=1.1.3
 APP_ENV=development        # development | production
-APP_DEBUG=true
+APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
 APP_CHARSET=UTF-8
 APP_BASE_URL=http://localhost:8080
@@ -1936,11 +1991,13 @@ CODE) ?>
                 $items = [
                     ['✅', 'Migrations de base de données',  'Système de versioning du schéma DB via CLI (make:migration, migrate, rollback, status). Batches numérotés, compatible SQLite et MySQL.',                                                                  true,  'done'],
                     ['✅', 'Scaffolding — Générateur de code','Génération de Model, DAO, Controller (resource/api) et Migration en une commande. Mode interactif guidé (make:module) ou mode direct.',                                                                   true,  'done'],
-                    ['✅', 'Tests unitaires',                 '178 tests, 228 assertions couvrant Validator, Container, Request, Session, Cache, Response, EventDispatcher, Router, Migrator, AbstractDao.',                                                            true,  'done'],
+                    ['✅', 'Tests unitaires',                 'PHPUnit — Validator, Container, Request, Session, Cache, Response, EventDispatcher, Router, Migrator, AbstractDao, ErrorHandler, Dumper.',                                                            true,  'done'],
                     ['✅', 'Events & Listeners',              'EventDispatcher synchrone : listen (classe/callable), dispatch, subscribe. UserRegistered → SendWelcomeEmail + LogUserActivity. UserLoggedIn → LogUserActivity.',                                         true,  'done'],
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
-                    ['✅', 'Composants astral-form / astral-vite', 'Packages optionnels Packagist : formulaires et pipeline Vite + Tailwind. Organisation [astral-php](https://github.com/astral-php).',                                                                                    true,  'done'],
+                    ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
+                    ['✅', 'Composants astral-form / astral-vite', 'Packages optionnels Packagist : formulaires et pipeline Vite + Tailwind. Organisation astral-php.',                                                                                    true,  'done'],
+                    ['📦', 'astral-template / astral-utilities', 'Layouts UI et helpers génériques — prochaine vague 1.2.0.',                                                                                                                                false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
