@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.1.3-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -15,12 +15,23 @@ Minimaliste par design, puissant par convention.
 
 ## Écosystème Composer (optionnel)
 
-Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin.
+Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin. Tous ciblent **PHP 8.1+**.
 
 | Package | Rôle | Dépôt |
 |--------|------|--------|
-| `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [astral-php/astral-form](https://github.com/astral-php/astral-form) |
-| `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [astral-php/astral-vite](https://github.com/astral-php/astral-vite) |
+| `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [astral-form](https://github.com/astral-php/astral-form) |
+| `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [astral-vite](https://github.com/astral-php/astral-vite) |
+| `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [astral-utilities](https://github.com/astral-php/astral-utilities) |
+| `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [astral-template](https://github.com/astral-php/astral-template) |
+
+```bash
+composer require astral-php/astral-form
+composer require astral-php/astral-vite
+composer require astral-php/astral-utilities
+composer require astral-php/astral-template
+```
+
+Puis enregistrer le `ServiceProvider` du package dans `config/dependencies.php` (voir le README de chaque dépôt).
 
 Organisation GitHub : [github.com/astral-php](https://github.com/astral-php).
 

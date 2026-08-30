@@ -89,7 +89,8 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC v1.1.3 (ErrorHandler, dump/dd — écosystème : astral-form, astral-vite).
+                        Documentation à jour pour Astral MVC <strong>v1.2.0</strong>
+                        (ErrorHandler, dump/dd — écosystème : form, vite, utilities, template).
                     </span>
                 </p>
             </div>
@@ -1237,7 +1238,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.1.3
+APP_VERSION=1.2.0
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -1966,14 +1967,24 @@ CODE) ?>
                             <td class="px-4 py-3 text-gray-600">Vite + Tailwind, <code>$vite-&gt;tags()</code> dans le layout, stubs d’intégration.</td>
                             <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-vite" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-vite</a></td>
                         </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-utilities</td>
+                            <td class="px-4 py-3 text-gray-600">Helpers <code>Str</code> / <code>Date</code> / <code>Arr</code> (zéro dépendance).</td>
+                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-utilities" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-utilities</a></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-template</td>
+                            <td class="px-4 py-3 text-gray-600">Layouts Tailwind admin / marketing + partials UI (alert, table, breadcrumb…).</td>
+                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-template" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-template</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <p class="text-gray-500 text-xs mt-4">
                 Installation typique : <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-form</code>
-                ou <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-vite</code>,
+                (idem pour <code>astral-vite</code>, <code>astral-utilities</code>, <code>astral-template</code>),
                 puis enregistrement du <code>ServiceProvider</code> du package dans <code>config/dependencies.php</code>
-                (voir le README de chaque dépôt).
+                (voir le README de chaque dépôt). Tous ciblent <strong>PHP 8.1+</strong>.
             </p>
         </section>
 
@@ -1996,8 +2007,8 @@ CODE) ?>
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
-                    ['✅', 'Composants astral-form / astral-vite', 'Packages optionnels Packagist : formulaires et pipeline Vite + Tailwind. Organisation astral-php.',                                                                                    true,  'done'],
-                    ['📦', 'astral-template / astral-utilities', 'Layouts UI et helpers génériques — prochaine vague 1.2.0.',                                                                                                                                false, 'haute'],
+                    ['✅', 'Écosystème astral-* (1.2.0)',   'Packages optionnels : astral-form, astral-vite, astral-utilities, astral-template. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
+                    ['📦', 'astral-auth-extra / blog / debug', 'Extensions Phase C : auth avancée, mini CMS, toolbar debug, helpers de test.',                                                                                                                                false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],

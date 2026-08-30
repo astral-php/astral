@@ -7,6 +7,23 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.2.0] — 2026-08-30
+
+### Ajouté
+
+- Documentation de l’**écosystème Composer complet** [astral-php](https://github.com/astral-php) :
+  - **[astral-form](https://github.com/astral-php/astral-form)** — formulaires (`FormBuilder`)
+  - **[astral-vite](https://github.com/astral-php/astral-vite)** — Vite + Tailwind
+  - **[astral-utilities](https://github.com/astral-php/astral-utilities)** — helpers `Str` / `Date` / `Arr`
+  - **[astral-template](https://github.com/astral-php/astral-template)** — layouts admin / marketing + partials UI
+- Tous les packages optionnels ciblent **PHP 8.1 → 8.5**, alignés sur le core.
+
+### Modifié
+
+- README, documentation en ligne (`/docs`), `SPEC.md`, `astral-plan.md`, `astral-components.md` : Phase B clôturée, version **1.2.0**.
+
+---
+
 ## [1.1.3] — 2026-08-29
 
 ### Changements incompatibles

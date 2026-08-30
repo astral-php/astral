@@ -21,7 +21,7 @@ use Core\Providers\DatabaseServiceProvider;
 use Core\Providers\FrameworkServiceProvider;
 
 return [
-    FrameworkServiceProvider::class,   // Session, Logger, Cache, Request, View, CSRF
+    FrameworkServiceProvider::class,   // Session, Logger, Cache, Request, View, CSRF, ErrorHandler
     DatabaseServiceProvider::class,    // PDO (SQLite / MySQL)
     AppServiceProvider::class,         // DAOs, Contrôleurs applicatifs
 ];
