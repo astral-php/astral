@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.2-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -23,12 +23,14 @@ Des **packages officiels** complètent le cœur du framework sans l’alourdir. 
 | `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [Packagist](https://packagist.org/packages/astral-php/astral-vite) · [GitHub](https://github.com/astral-php/astral-vite) |
 | `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [Packagist](https://packagist.org/packages/astral-php/astral-utilities) · [GitHub](https://github.com/astral-php/astral-utilities) |
 | `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [Packagist](https://packagist.org/packages/astral-php/astral-template) · [GitHub](https://github.com/astral-php/astral-template) |
+| `astral-php/astral-auth-extra` | Throttling login, remember-me, journal des tentatives | [Packagist](https://packagist.org/packages/astral-php/astral-auth-extra) · [GitHub](https://github.com/astral-php/astral-auth-extra) |
 
 ```bash
 composer require astral-php/astral-form
 composer require astral-php/astral-vite
 composer require astral-php/astral-utilities
 composer require astral-php/astral-template
+composer require astral-php/astral-auth-extra
 ```
 
 Puis enregistrer le `ServiceProvider` du package dans `config/dependencies.php` (voir le README de chaque dépôt).
@@ -145,7 +147,7 @@ astral-mvc/
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.1**) :
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.2**) :
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -153,10 +155,10 @@ cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.1** :
+Pour figer exactement la **1.2.2** :
 
 ```bash
-composer create-project astral-php/astral:1.2.1 mon-projet
+composer create-project astral-php/astral:1.2.2 mon-projet
 ```
 
 ### Depuis un clone Git

@@ -7,6 +7,20 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.2.2] — 2026-08-30
+
+### Ajouté
+
+- Documentation : `astral-auth-extra` (Packagist 0.1.0) dans le README et `/docs`.
+- Sommaire `/docs` sectorisé : **Démarrer** · **Fonctionnalités** · **Composants** · **Évolutions**.
+
+### Modifié
+
+- Menu latéral `/docs` en **accordéon** (un panneau ouvert à la fois, ouverture auto selon le hash).
+- Badge / `APP_VERSION` / fallback config portés à **1.2.2**.
+
+---
+
 ## [1.2.1] — 2026-08-30
 
 ### Ajouté

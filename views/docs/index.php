@@ -3,15 +3,17 @@
 <!-- Sidebar + contenu côte à côte -->
 <div class="flex gap-8 items-start">
 
-    <!-- ─── Sidebar de navigation ─── -->
-    <aside class="hidden lg:block w-56 shrink-0 sticky top-6">
-        <nav class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 text-sm">
-            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-2">Sommaire</p>
-            <ul class="space-y-0.5">
-                <?php
-                $sections = [
-                    'intro'       => 'Introduction',
-                    'structure'   => 'Structure',
+    <!-- ─── Sidebar de navigation (accordéon) ─── -->
+    <aside class="hidden lg:block w-60 shrink-0 sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto">
+        <nav id="docs-nav" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 text-sm">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Sommaire</p>
+            <?php
+            $navGroups = [
+                'Démarrer' => [
+                    'intro'     => 'Introduction',
+                    'structure' => 'Structure',
+                ],
+                'Fonctionnalités' => [
                     'router'      => 'Router',
                     'container'   => 'Container (DI)',
                     'controller'  => 'Contrôleurs',
@@ -39,20 +41,86 @@
                     'api'         => 'API REST JSON',
                     'new-module'  => 'Créer un module',
                     'from-scratch'=> 'Projet from scratch',
-                    'ecosystem'   => 'Écosystème Composer',
-                    'evolutions'  => 'Évolutions futures',
-                ];
-                foreach ($sections as $id => $label):
-                ?>
-                <li>
-                    <a href="#<?= $id ?>"
-                       class="block px-2 py-1.5 rounded-lg text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 transition">
-                        <?= htmlspecialchars($label) ?>
-                    </a>
-                </li>
-                <?php endforeach ?>
-            </ul>
+                ],
+                'Composants' => [
+                    'ecosystem' => 'Écosystème Composer',
+                ],
+                'Évolutions' => [
+                    'evolutions' => 'Évolutions & backlog',
+                ],
+            ];
+            $groupIndex = 0;
+            foreach ($navGroups as $groupLabel => $sections):
+                $openByDefault = $groupIndex === 0; // Démarrer ouvert au chargement
+                $sectionIds = implode(' ', array_keys($sections));
+            ?>
+            <details
+                class="docs-acc group border-b border-gray-50 last:border-0"
+                data-sections="<?= htmlspecialchars($sectionIds) ?>"
+                <?= $openByDefault ? 'open' : '' ?>
+            >
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-2 rounded-lg px-2 py-2.5 font-semibold text-indigo-700 hover:bg-indigo-50 select-none [&::-webkit-details-marker]:hidden">
+                    <span class="text-xs uppercase tracking-wider"><?= htmlspecialchars($groupLabel) ?></span>
+                    <svg class="h-4 w-4 shrink-0 text-indigo-400 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+                    </svg>
+                </summary>
+                <ul class="space-y-0.5 pb-2 pl-1">
+                    <?php foreach ($sections as $id => $label): ?>
+                    <li>
+                        <a href="#<?= $id ?>"
+                           class="docs-nav-link block px-2 py-1.5 rounded-lg text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 transition">
+                            <?= htmlspecialchars($label) ?>
+                        </a>
+                    </li>
+                    <?php endforeach ?>
+                </ul>
+            </details>
+            <?php
+                $groupIndex++;
+            endforeach;
+            ?>
         </nav>
+        <script>
+        (function () {
+            var nav = document.getElementById('docs-nav');
+            if (!nav) return;
+            var panels = Array.prototype.slice.call(nav.querySelectorAll('details.docs-acc'));
+
+            function openGroupForHash(hash) {
+                var id = (hash || '').replace(/^#/, '');
+                if (!id) return;
+                panels.forEach(function (panel) {
+                    var sections = (panel.getAttribute('data-sections') || '').split(/\s+/);
+                    if (sections.indexOf(id) !== -1) {
+                        panel.open = true;
+                    }
+                });
+                var link = nav.querySelector('a[href="#' + id + '"]');
+                if (link) {
+                    nav.querySelectorAll('.docs-nav-link').forEach(function (a) {
+                        a.classList.remove('bg-indigo-50', 'text-indigo-700', 'font-medium');
+                    });
+                    link.classList.add('bg-indigo-50', 'text-indigo-700', 'font-medium');
+                }
+            }
+
+            // Un seul panneau ouvert à la fois
+            panels.forEach(function (panel) {
+                panel.addEventListener('toggle', function () {
+                    if (!panel.open) return;
+                    panels.forEach(function (other) {
+                        if (other !== panel) other.open = false;
+                    });
+                });
+            });
+
+            openGroupForHash(window.location.hash);
+            window.addEventListener('hashchange', function () {
+                openGroupForHash(window.location.hash);
+            });
+        })();
+        </script>
     </aside>
 
     <!-- ─── Corps de la documentation ─── -->
@@ -89,7 +157,7 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v1.2.1</strong>
+                        Documentation à jour pour Astral MVC <strong>v1.2.2</strong>
                         (ErrorHandler, dump/dd — écosystème : form, vite, utilities, template).
                     </span>
                 </p>
@@ -97,7 +165,7 @@
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
             <p class="text-gray-600 text-sm mb-3">
-                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.1</strong>) :
+                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.2</strong>) :
             </p>
             <?php codeBlock('bash', <<<'CODE'
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -107,7 +175,7 @@ cp .env.example .env
 php -S localhost:8080 -t public
 CODE) ?>
             <p class="text-gray-500 text-xs mt-3 mb-3">
-                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.1 mon-projet</code>
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.2 mon-projet</code>
             </p>
             <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
             <?php codeBlock('bash', <<<'CODE'
@@ -1251,7 +1319,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.2.1
+APP_VERSION=1.2.2
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -1992,12 +2060,17 @@ CODE) ?>
                             <td class="px-4 py-3 text-gray-600">Layouts Tailwind admin / marketing + partials UI (alert, table, breadcrumb…).</td>
                             <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-template" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-auth-extra</td>
+                            <td class="px-4 py-3 text-gray-600">Throttling login, remember-me, journal des tentatives (fichier + DB optionnelle).</td>
+                            <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-auth-extra" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <p class="text-gray-500 text-xs mt-4">
                 Installation : <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-form</code>
-                (idem pour <code>astral-vite</code>, <code>astral-utilities</code>, <code>astral-template</code>),
+                (idem pour <code>astral-vite</code>, <code>astral-utilities</code>, <code>astral-template</code>, <code>astral-auth-extra</code>),
                 puis enregistrement du <code>ServiceProvider</code> dans <code>config/dependencies.php</code>.
                 Tous ciblent <strong>PHP 8.1+</strong> et sont sur Packagist.
             </p>
@@ -2022,8 +2095,9 @@ CODE) ?>
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
-                    ['✅', 'Écosystème astral-* (1.2.0)',   'Packages optionnels sur Packagist : astral-form, astral-vite, astral-utilities, astral-template. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
-                    ['📦', 'astral-auth-extra / blog / debug', 'Extensions Phase C : auth avancée, mini CMS, toolbar debug, helpers de test.',                                                                                                                                false, 'haute'],
+                    ['✅', 'Écosystème astral-* (1.2.x)',   'Packagist : form, vite, utilities, template, auth-extra. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
+                    ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel Phase C.',                                                                                                                                true,  'done'],
+                    ['📦', 'astral-blog / debug / testing', 'Suite Phase C : mini CMS, toolbar debug, helpers de test.',                                                                                                                                false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
