@@ -7,20 +7,36 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.2.1] — 2026-08-30
+
+### Ajouté
+
+- Installation recommandée via Packagist :
+  `composer create-project astral-php/astral:^1.2 mon-projet`
+  (variante exacte : `astral-php/astral:1.2.1`).
+- Liens **Packagist** explicites pour les packages optionnels (form, vite, utilities, template) dans le README et `/docs`.
+
+### Modifié
+
+- README et documentation en ligne (`/docs`) : section installation `create-project` + clone GitHub `astral-php/astral`.
+- Badge / `APP_VERSION` / fallback config portés à **1.2.1**.
+
+---
+
 ## [1.2.0] — 2026-08-30
 
 ### Ajouté
 
-- Documentation de l’**écosystème Composer complet** [astral-php](https://github.com/astral-php) :
-  - **[astral-form](https://github.com/astral-php/astral-form)** — formulaires (`FormBuilder`)
-  - **[astral-vite](https://github.com/astral-php/astral-vite)** — Vite + Tailwind
-  - **[astral-utilities](https://github.com/astral-php/astral-utilities)** — helpers `Str` / `Date` / `Arr`
-  - **[astral-template](https://github.com/astral-php/astral-template)** — layouts admin / marketing + partials UI
+- Documentation de l’**écosystème Composer** [astral-php](https://github.com/astral-php) :
+  - **[astral-form](https://packagist.org/packages/astral-php/astral-form)** — formulaires (`FormBuilder`)
+  - **[astral-vite](https://packagist.org/packages/astral-php/astral-vite)** — Vite + Tailwind
+  - **[astral-utilities](https://packagist.org/packages/astral-php/astral-utilities)** — helpers `Str` / `Date` / `Arr`
+  - **[astral-template](https://packagist.org/packages/astral-php/astral-template)** — layouts admin / marketing + partials UI
 - Tous les packages optionnels ciblent **PHP 8.1 → 8.5**, alignés sur le core.
 
 ### Modifié
 
-- README, documentation en ligne (`/docs`), `SPEC.md`, `astral-plan.md`, `astral-components.md` : Phase B clôturée, version **1.2.0**.
+- README, documentation en ligne (`/docs`) : Phase B clôturée, version **1.2.0**.
 
 ---
 

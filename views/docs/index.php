@@ -89,19 +89,32 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v1.2.0</strong>
+                        Documentation à jour pour Astral MVC <strong>v1.2.1</strong>
                         (ErrorHandler, dump/dd — écosystème : form, vite, utilities, template).
                     </span>
                 </p>
             </div>
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
+            <p class="text-gray-600 text-sm mb-3">
+                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.1</strong>) :
+            </p>
             <?php codeBlock('bash', <<<'CODE'
-git clone https://github.com/vous/astral-mvc.git
-cd astral-mvc
-composer install
+composer create-project astral-php/astral:^1.2 mon-projet
+cd mon-projet
 cp .env.example .env
 # éditer .env puis :
+php -S localhost:8080 -t public
+CODE) ?>
+            <p class="text-gray-500 text-xs mt-3 mb-3">
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.1 mon-projet</code>
+            </p>
+            <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
+            <?php codeBlock('bash', <<<'CODE'
+git clone https://github.com/astral-php/astral.git
+cd astral
+composer install
+cp .env.example .env
 php -S localhost:8080 -t public
 CODE) ?>
         </section>
@@ -1238,7 +1251,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.2.0
+APP_VERSION=1.2.1
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -1944,8 +1957,10 @@ CODE) ?>
             <p class="text-gray-600 text-sm mb-4">
                 Le cœur d’Astral MVC reste minimal (voir <code>composer.json</code> du framework).
                 Des packages officiels sous l’organisation
-                <a href="https://github.com/astral-php" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">github.com/astral-php</a>
-                complètent le projet <strong>uniquement si vous les installez</strong>.
+                <a href="https://github.com/astral-php" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-php</a>
+                sont publiés sur
+                <a href="https://packagist.org/packages/astral-php/" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a>
+                et s’installent <strong>uniquement si vous en avez besoin</strong>.
             </p>
             <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
                 <table class="min-w-full text-sm">
@@ -1953,38 +1968,38 @@ CODE) ?>
                         <tr>
                             <th class="px-4 py-3 font-semibold">Package</th>
                             <th class="px-4 py-3 font-semibold">Rôle</th>
-                            <th class="px-4 py-3 font-semibold">Dépôt</th>
+                            <th class="px-4 py-3 font-semibold">Packagist</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 bg-white">
                         <tr>
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-form</td>
                             <td class="px-4 py-3 text-gray-600"><code>FormBuilder</code>, ServiceProvider, variable <code>$form</code> dans les vues, erreurs <code>Validator</code>.</td>
-                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-form" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-form</a></td>
+                            <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-form" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
                         <tr>
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-vite</td>
                             <td class="px-4 py-3 text-gray-600">Vite + Tailwind, <code>$vite-&gt;tags()</code> dans le layout, stubs d’intégration.</td>
-                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-vite" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-vite</a></td>
+                            <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-vite" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
                         <tr>
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-utilities</td>
                             <td class="px-4 py-3 text-gray-600">Helpers <code>Str</code> / <code>Date</code> / <code>Arr</code> (zéro dépendance).</td>
-                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-utilities" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-utilities</a></td>
+                            <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-utilities" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
                         <tr>
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-template</td>
                             <td class="px-4 py-3 text-gray-600">Layouts Tailwind admin / marketing + partials UI (alert, table, breadcrumb…).</td>
-                            <td class="px-4 py-3"><a href="https://github.com/astral-php/astral-template" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">astral-template</a></td>
+                            <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-template" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <p class="text-gray-500 text-xs mt-4">
-                Installation typique : <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-form</code>
+                Installation : <code class="bg-gray-100 px-1 rounded">composer require astral-php/astral-form</code>
                 (idem pour <code>astral-vite</code>, <code>astral-utilities</code>, <code>astral-template</code>),
-                puis enregistrement du <code>ServiceProvider</code> du package dans <code>config/dependencies.php</code>
-                (voir le README de chaque dépôt). Tous ciblent <strong>PHP 8.1+</strong>.
+                puis enregistrement du <code>ServiceProvider</code> dans <code>config/dependencies.php</code>.
+                Tous ciblent <strong>PHP 8.1+</strong> et sont sur Packagist.
             </p>
         </section>
 
@@ -2007,7 +2022,7 @@ CODE) ?>
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
-                    ['✅', 'Écosystème astral-* (1.2.0)',   'Packages optionnels : astral-form, astral-vite, astral-utilities, astral-template. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
+                    ['✅', 'Écosystème astral-* (1.2.0)',   'Packages optionnels sur Packagist : astral-form, astral-vite, astral-utilities, astral-template. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
                     ['📦', 'astral-auth-extra / blog / debug', 'Extensions Phase C : auth avancée, mini CMS, toolbar debug, helpers de test.',                                                                                                                                false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],

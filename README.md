@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.1-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -15,14 +15,14 @@ Minimaliste par design, puissant par convention.
 
 ## Écosystème Composer (optionnel)
 
-Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin. Tous ciblent **PHP 8.1+**.
+Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin. Tous ciblent **PHP 8.1+** et sont disponibles sur **[Packagist](https://packagist.org/packages/astral-php/)**.
 
-| Package | Rôle | Dépôt |
+| Package | Rôle | Packagist / dépôt |
 |--------|------|--------|
-| `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [astral-form](https://github.com/astral-php/astral-form) |
-| `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [astral-vite](https://github.com/astral-php/astral-vite) |
-| `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [astral-utilities](https://github.com/astral-php/astral-utilities) |
-| `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [astral-template](https://github.com/astral-php/astral-template) |
+| `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [Packagist](https://packagist.org/packages/astral-php/astral-form) · [GitHub](https://github.com/astral-php/astral-form) |
+| `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [Packagist](https://packagist.org/packages/astral-php/astral-vite) · [GitHub](https://github.com/astral-php/astral-vite) |
+| `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [Packagist](https://packagist.org/packages/astral-php/astral-utilities) · [GitHub](https://github.com/astral-php/astral-utilities) |
+| `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [Packagist](https://packagist.org/packages/astral-php/astral-template) · [GitHub](https://github.com/astral-php/astral-template) |
 
 ```bash
 composer require astral-php/astral-form
@@ -33,7 +33,7 @@ composer require astral-php/astral-template
 
 Puis enregistrer le `ServiceProvider` du package dans `config/dependencies.php` (voir le README de chaque dépôt).
 
-Organisation GitHub : [github.com/astral-php](https://github.com/astral-php).
+Organisation : [Packagist astral-php](https://packagist.org/packages/astral-php/) · [GitHub astral-php](https://github.com/astral-php).
 
 ---
 
@@ -143,6 +143,24 @@ astral-mvc/
 
 **Prérequis :** PHP **8.1** ou supérieur (8.1 → 8.5).
 
+### Via Composer (recommandé)
+
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.1**) :
+
+```bash
+composer create-project astral-php/astral:^1.2 mon-projet
+cd mon-projet
+cp .env.example .env   # puis adaptez les valeurs
+```
+
+Pour figer exactement la **1.2.1** :
+
+```bash
+composer create-project astral-php/astral:1.2.1 mon-projet
+```
+
+### Depuis un clone Git
+
 ```bash
 composer install
 cp .env.example .env   # puis adaptez les valeurs
@@ -152,8 +170,8 @@ Vérifiez notamment `APP_DEBUG=true` en développement (pages d'erreur détaill�
 
 ## Démarrage rapide (Laragon / Apache)
 
-1. Copier le projet dans `laragon/www/mvc/`
-2. Accéder à `http://mvc.test` ou `http://localhost/mvc`
+1. Créer le projet (`create-project` ou clone) dans `laragon/www/` (ex. `mon-projet`)
+2. Accéder à `http://mon-projet.test` ou `http://localhost/mon-projet`
 3. La base SQLite et le dossier `storage/logs/` sont créés automatiquement
 
 ---
