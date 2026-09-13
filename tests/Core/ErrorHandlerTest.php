@@ -19,6 +19,10 @@ final class ErrorHandlerTest extends TestCase
 
     protected function setUp(): void
     {
+        if (!defined('BASE_PATH')) {
+            define('BASE_PATH', dirname(__DIR__, 2));
+        }
+
         $this->logDir = sys_get_temp_dir() . '/astral_error_handler_' . uniqid('', true);
         mkdir($this->logDir, 0755, true);
         $this->logger = new Logger($this->logDir);

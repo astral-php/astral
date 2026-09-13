@@ -6,6 +6,7 @@
 /.phpunit.result.cache
 composer.lock
 SPEC.md
+astral.md
 astral-components.md
 astral-plan.md
 .vscode

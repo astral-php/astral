@@ -7,6 +7,23 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.2.3] — 2026-09-13
+
+### Ajouté
+
+- Package **`astral-php/astral-core` 1.2.3** (library) : moteur extrait (`Core\`, `Database\`, `Controller\`, `helpers.php`).
+- Hub produit **`astral.md`** : Apps / Core / Components.
+- L’app `astral` dépend de `astral-core:^1.2` ([GitHub](https://github.com/astral-php/astral-core) / Packagist).
+
+### Modifié
+
+- Autoload app : uniquement `App\` — le framework vient du package core.
+- `ErrorHandler` : résolution des vues d’erreur uniquement via `BASE_PATH` (contrat app hôte).
+- Composants form / template / vite / auth-extra / blog : `require astral-php/astral-core:^1.2`.
+- Doc `/docs` + README : version courante **1.2.3**.
+
+---
+
 ## [1.2.2] — 2026-08-30
 
 ### Ajouté

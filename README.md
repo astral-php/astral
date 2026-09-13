@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.2-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.3-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -13,19 +13,37 @@ Minimaliste par design, puissant par convention.
 
 ---
 
-## Écosystème Composer (optionnel)
+## Écosystème Composer
 
-Des **packages officiels** complètent le cœur du framework sans l’alourdir. Ils s’installent uniquement si tu en as besoin. Tous ciblent **PHP 8.1+** et sont disponibles sur **[Packagist](https://packagist.org/packages/astral-php/)**.
+Trois familles (détail : [`astral.md`](./astral.md)) :
 
-| Package | Rôle | Packagist / dépôt |
+| Famille | Commande | Exemples |
+|--------|----------|----------|
+| **Application** | `composer create-project` | `astral-php/astral` ; futur `astral-blog`, `astral-shop` |
+| **Core** | dépendance Composer | **[`astral-php/astral-core`](https://github.com/astral-php/astral-core) 1.2.3** |
+| **Composant** | `composer require` | form, vite, utilities, template, auth-extra… |
+
+### Composants optionnels
+
+| Package | Rôle | Statut |
 |--------|------|--------|
 | `astral-php/astral-form` | Formulaires (`FormBuilder`, erreurs `Validator`, variable `$form` dans les vues) | [Packagist](https://packagist.org/packages/astral-php/astral-form) · [GitHub](https://github.com/astral-php/astral-form) |
 | `astral-php/astral-vite` | Assets Vite + Tailwind, `$vite->tags()` dans le layout | [Packagist](https://packagist.org/packages/astral-php/astral-vite) · [GitHub](https://github.com/astral-php/astral-vite) |
 | `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [Packagist](https://packagist.org/packages/astral-php/astral-utilities) · [GitHub](https://github.com/astral-php/astral-utilities) |
 | `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [Packagist](https://packagist.org/packages/astral-php/astral-template) · [GitHub](https://github.com/astral-php/astral-template) |
 | `astral-php/astral-auth-extra` | Throttling login, remember-me, journal des tentatives | [Packagist](https://packagist.org/packages/astral-php/astral-auth-extra) · [GitHub](https://github.com/astral-php/astral-auth-extra) |
+| `astral-php/astral-extend-orm` | Modèles enrichis (fillable, casts, accessors, relations) | En cours (remaniement) → **1.3** |
+| `astral-php/astral-payment` | Paiements Stripe (checkout, webhooks) | En cours (repackaging) → **1.3** |
+
+### Applications
+
+| Package | Rôle | Statut |
+|--------|------|--------|
+| `astral-php/astral` | Starter MVC | ✅ **1.2.3** (require `astral-core`) |
+| `astral-php/astral-blog` | Blog / CMS clé en main | MVP local 0.3 — **`create-project` après astral-core 1.2.3** |
 
 ```bash
+composer create-project astral-php/astral:^1.2 mon-projet
 composer require astral-php/astral-form
 composer require astral-php/astral-vite
 composer require astral-php/astral-utilities
@@ -34,6 +52,9 @@ composer require astral-php/astral-auth-extra
 ```
 
 Puis enregistrer le `ServiceProvider` du package dans `config/dependencies.php` (voir le README de chaque dépôt).
+
+> **Roadmap :** **1.2.3** = extraction `astral-core` ; ensuite blog en application, puis extend-orm / payment.  
+> Le **core 2.x** (enums, readonly, PHP 8.2+) est un chantier séparé.
 
 Organisation : [Packagist astral-php](https://packagist.org/packages/astral-php/) · [GitHub astral-php](https://github.com/astral-php).
 
@@ -62,62 +83,12 @@ astral-mvc/
 │   ├── .htaccess           # Réécriture Apache
 │   └── index.php           # Bootstrap minimal (ne pas modifier)
 ├── src/
-│   ├── helpers.php                # dump() / dd() (autoload Composer files)
-│   ├── Core/
-│   │   ├── Application.php        # Chef d'orchestre du démarrage
-│   │   ├── Cache.php              # Cache fichier (TTL, remember, flush)
-│   │   ├── ErrorHandler.php       # Handlers globaux + pages d'erreur
-│   │   ├── Dumper/Dumper.php      # Moteur dump() / dd()
-│   │   ├── ServiceProviderInterface.php  # Contrat des providers
-│   │   ├── Providers/
-│   │   │   ├── FrameworkServiceProvider.php  # Session, Logger, Cache, View, ErrorHandler…
-│   │   │   └── DatabaseServiceProvider.php   # PDO
-│   │   ├── Container.php          # Conteneur DI (autowiring + singletons)
-│   │   ├── CsrfGuard.php          # Protection CSRF (token de session)
-│   │   ├── Logger.php             # Logger fichier journalier
-│   │   ├── Mailer/
-│   │   │   └── Mailer.php         # Envoi e-mail (SMTP via PHPMailer)
-│   │   ├── Request.php            # Requête HTTP (JSON, verb spoofing)
-│   │   ├── Router.php             # Routeur (routes + middleware + groupes)
-│   │   ├── Session.php            # Session + messages flash
-│   │   ├── Validator.php          # Validation des données
-│   │   ├── View.php               # Moteur de rendu → retourne string
-│   │   ├── Console/
-│   │   │   ├── CommandInterface.php
-│   │   │   ├── Console.php        # Dispatcher + helpers ANSI
-│   │   │   └── Commands/
-│   │   │       ├── ClearCacheCommand.php
-│   │   │       ├── MigrateCommand.php          # migrate
-│   │   │       ├── MigrateRollbackCommand.php  # migrate:rollback
-│   │   │       ├── MigrateStatusCommand.php    # migrate:status
-│   │   │       └── MakeMigrationCommand.php    # make:migration
-│   │   ├── Auth/
-│   │   │   ├── Auth.php           # Service auth (login, logout, check, is, can)
-│   │   │   ├── Role.php           # Constantes ADMIN | USER | GUEST
-│   │   │   └── Middleware/
-│   │   │       ├── AuthMiddleware.php   # Connecté ou → /login
-│   │   │       ├── AdminMiddleware.php  # Admin ou → 403
-│   │   │       └── GuestMiddleware.php  # Invité ou → /
-│   │   ├── Exception/
-│   │   │   ├── AuthorizationException.php  # 403
-│   │   │   ├── CsrfException.php
-│   │   │   ├── NotFoundException.php
-│   │   │   └── ValidationException.php
-│   │   ├── Http/
-│   │   │   ├── Response.php       # Réponse HTML (testable)
-│   │   │   ├── JsonResponse.php   # Réponse JSON
-│   │   │   └── RedirectResponse.php
-│   │   └── Middleware/
-│   │       ├── CsrfMiddleware.php
-│   │       └── MiddlewareInterface.php
-│   ├── Controller/
-│   │   └── AbstractController.php # render/redirect/json → Response
-│   └── Database/
-│       ├── AbstractDao.php        # CRUD générique PDO + pagination
-│       ├── Connection.php         # Singleton PDO (SQLite / MySQL)
-│       └── Migration/
-│           ├── Migration.php      # Classe abstraite de base (up/down)
-│           └── Migrator.php       # Moteur : run, rollback, status
+│   └── README.md           # Pointe vers le package astral-core
+│
+│   Moteur framework → package Composer **astral-php/astral-core**
+│   (workspace : ../components-astral/astral-core/)
+│   Namespaces : Core\, Database\, Controller\ + helpers dump()/dd()
+│
 ├── bin/
 │   └── console                    # Point d'entrée CLI
 ├── storage/
@@ -147,7 +118,7 @@ astral-mvc/
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.2**) :
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.3**) :
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -155,11 +126,13 @@ cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.2** :
+Pour figer exactement la **1.2.3** :
 
 ```bash
-composer create-project astral-php/astral:1.2.2 mon-projet
+composer create-project astral-php/astral:1.2.3 mon-projet
 ```
+
+Dépend de [`astral-php/astral-core`](https://github.com/astral-php/astral-core) **^1.2**.
 
 ### Depuis un clone Git
 
@@ -247,7 +220,7 @@ $router->group('/api/v1', function (Router $r): void {
 ```
 
 > **Note :** Les middlewares `CorsMiddleware` et `BearerTokenMiddleware`, ainsi que la classe
-> `ApiResponse` et `AbstractApiController`, font partie du **framework** (`src/Core/`) — vous
+> `ApiResponse` et `AbstractApiController`, font partie du **framework** (`astral-php/astral-core`) — vous
 > pouvez les réutiliser pour vos propres modules API sans les supprimer.
 
 ---
@@ -730,7 +703,7 @@ return [
 ];
 ```
 
-> Les providers du framework (`src/Core/Providers/`) ne sont **jamais** modifiés.
+> Les providers du framework (`astral-core` → `Core\Providers\`) ne sont **jamais** modifiés.
 > Vos ajouts se font exclusivement dans `app/Providers/`.
 
 ---
@@ -876,6 +849,14 @@ php bin/console migrate
 ---
 
 ## Authentification & Rôles
+
+Le **premier compte** créé via `/register` devient automatiquement **admin**.  
+Ensuite, l’admin paramètre l’inscription des utilisateurs suivants dans le `.env` :
+
+```env
+AUTH_REGISTRATION=direct   # accès immédiat après inscription
+# AUTH_REGISTRATION=confirm  # e-mail de confirmation requis (mailer)
+```
 
 ### Rôles disponibles
 
@@ -1474,7 +1455,7 @@ $router->group('', function (Router $r): void {
 }, [AuthMiddleware::class, CsrfMiddleware::class]);
 ```
 
-> `public/index.php` et `src/Core/Application.php` ne sont **jamais** modifiés.
+> `public/index.php` et `Core\Application` (package `astral-core`) ne sont **jamais** modifiés.
 
 ---
 
