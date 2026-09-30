@@ -7,6 +7,29 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [Unreleased]
+
+### Orienté (doc)
+
+- Hub **1.2.5** prévu : extend-orm / payment / debug (quand publiés).
+- Hub **1.2.6** éventuel : astral-shop ; puis core **2.x**.
+
+---
+
+## [1.2.4] — 2026-09-30
+
+### Ajouté / documenté
+
+- Applications **`astral-starter` 0.1.0** et **`astral-blog` 1.0.0** publiées (GitHub / Packagist) — `create-project`.
+- README + `/docs` : statut apps à jour, commandes d’installation, roadmap 1.2.5 → 1.2.6 → core 2.x.
+
+### Modifié
+
+- Badge / `APP_VERSION` / fallback config portés à **1.2.4**.
+- Mentions publiques de `astral.md` retirées (fichier de travail interne, hors dépôt publié).
+
+---
+
 ## [1.2.3] — 2026-09-13
 
 ### Ajouté

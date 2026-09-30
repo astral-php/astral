@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.3-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.4-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -15,11 +15,11 @@ Minimaliste par design, puissant par convention.
 
 ## Écosystème Composer
 
-Trois familles (détail : [`astral.md`](./astral.md)) :
+Trois familles :
 
 | Famille | Commande | Exemples |
 |--------|----------|----------|
-| **Application** | `composer create-project` | `astral-php/astral` ; futur `astral-blog`, `astral-shop` |
+| **Application** | `composer create-project` | `astral` (démo) ; **`astral-starter`** ; **`astral-blog`** ; futur `astral-shop` |
 | **Core** | dépendance Composer | **[`astral-php/astral-core`](https://github.com/astral-php/astral-core) 1.2.3** |
 | **Composant** | `composer require` | form, vite, utilities, template, auth-extra… |
 
@@ -32,18 +32,21 @@ Trois familles (détail : [`astral.md`](./astral.md)) :
 | `astral-php/astral-utilities` | Helpers `Str` / `Date` / `Arr` (zéro dépendance) | [Packagist](https://packagist.org/packages/astral-php/astral-utilities) · [GitHub](https://github.com/astral-php/astral-utilities) |
 | `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [Packagist](https://packagist.org/packages/astral-php/astral-template) · [GitHub](https://github.com/astral-php/astral-template) |
 | `astral-php/astral-auth-extra` | Throttling login, remember-me, journal des tentatives | [Packagist](https://packagist.org/packages/astral-php/astral-auth-extra) · [GitHub](https://github.com/astral-php/astral-auth-extra) |
-| `astral-php/astral-extend-orm` | Modèles enrichis (fillable, casts, accessors, relations) | En cours (remaniement) → **1.3** |
-| `astral-php/astral-payment` | Paiements Stripe (checkout, webhooks) | En cours (repackaging) → **1.3** |
+| `astral-php/astral-extend-orm` | Modèles enrichis (fillable, casts, accessors, relations) | En cours (remaniement) → hub **1.2.5** |
+| `astral-php/astral-payment` | Paiements Stripe (checkout, webhooks) | En cours (repackaging) → hub **1.2.5** |
 
 ### Applications
 
 | Package | Rôle | Statut |
 |--------|------|--------|
-| `astral-php/astral` | Starter MVC | ✅ **1.2.3** (require `astral-core`) |
-| `astral-php/astral-blog` | Blog / CMS clé en main | MVP local 0.3 — **`create-project` après astral-core 1.2.3** |
+| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.4** |
+| `astral-php/astral-starter` | Base vierge (auth + admin + layout simple) | ✅ **0.1.0** — [Packagist](https://packagist.org/packages/astral-php/astral-starter) · [GitHub](https://github.com/astral-php/astral-starter) |
+| `astral-php/astral-blog` | Blog / CMS clé en main | ✅ **1.0.0** — [Packagist](https://packagist.org/packages/astral-php/astral-blog) · [GitHub](https://github.com/astral-php/astral-blog) |
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
+composer create-project astral-php/astral-starter mon-app
+composer create-project astral-php/astral-blog mon-blog
 composer require astral-php/astral-form
 composer require astral-php/astral-vite
 composer require astral-php/astral-utilities
@@ -51,12 +54,10 @@ composer require astral-php/astral-template
 composer require astral-php/astral-auth-extra
 ```
 
-Puis enregistrer le `ServiceProvider` du package dans `config/dependencies.php` (voir le README de chaque dépôt).
+Pour les composants : enregistrer le `ServiceProvider` dans `config/dependencies.php` (voir le README de chaque dépôt).
 
-> **Roadmap :** **1.2.3** = extraction `astral-core` ; ensuite blog en application, puis extend-orm / payment.  
-> Le **core 2.x** (enums, readonly, PHP 8.2+) est un chantier séparé.
-
-Organisation : [Packagist astral-php](https://packagist.org/packages/astral-php/) · [GitHub astral-php](https://github.com/astral-php).
+> **Roadmap :** prochain hub **1.2.5** (extend-orm / payment / debug), puis **1.2.6** (shop éventuel), puis **core 2.x**.  
+> Doc publique : cette page + [`/docs`](./views/docs/index.php) · organisation [Packagist](https://packagist.org/packages/astral-php/) · [GitHub](https://github.com/astral-php).
 
 ---
 
@@ -118,7 +119,7 @@ astral-mvc/
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.3**) :
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.4**) :
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -126,10 +127,10 @@ cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.3** :
+Pour figer exactement la **1.2.4** :
 
 ```bash
-composer create-project astral-php/astral:1.2.3 mon-projet
+composer create-project astral-php/astral:1.2.4 mon-projet
 ```
 
 Dépend de [`astral-php/astral-core`](https://github.com/astral-php/astral-core) **^1.2**.

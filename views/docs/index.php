@@ -43,8 +43,9 @@
                     'from-scratch'=> 'Projet from scratch',
                 ],
                 'Composants' => [
-                    'ecosystem'   => 'Apps / Core / Composants',
-                    'astral-blog' => 'astral-blog (app future)',
+                    'ecosystem'       => 'Apps / Core / Composants',
+                    'astral-starter'  => 'astral-starter',
+                    'astral-blog'     => 'astral-blog 1.0',
                 ],
                 'Évolutions' => [
                     'evolutions' => 'Évolutions & backlog',
@@ -158,15 +159,15 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v1.2.3</strong>
-                        (<code class="text-indigo-100">astral-core</code>, ErrorHandler, dump/dd — écosystème : form, vite, utilities, template, auth-extra).
+                        Documentation à jour pour Astral MVC <strong>v1.2.4</strong>
+                        (<code class="text-indigo-100">astral-core</code> 1.2.3 — apps starter / blog — écosystème : form, vite, utilities, template, auth-extra).
                     </span>
                 </p>
             </div>
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
             <p class="text-gray-600 text-sm mb-3">
-                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.3</strong>) :
+                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.4</strong>) :
             </p>
             <?php codeBlock('bash', <<<'CODE'
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -176,7 +177,7 @@ cp .env.example .env
 php -S localhost:8080 -t public
 CODE) ?>
             <p class="text-gray-500 text-xs mt-3 mb-3">
-                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.3 mon-projet</code>
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.4 mon-projet</code>
             </p>
             <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
             <?php codeBlock('bash', <<<'CODE'
@@ -1326,7 +1327,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.2.3
+APP_VERSION=1.2.4
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -2032,7 +2033,7 @@ CODE) ?>
         <section id="ecosystem">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">Apps / Core / Composants</h2>
             <p class="text-gray-600 text-sm mb-4">
-                Orientation produit (hub <code class="bg-gray-100 px-1 rounded text-xs">astral.md</code>) :
+                Orientation produit :
                 les <strong>applications</strong> s’installent via <code>composer create-project</code>,
                 les <strong>composants</strong> via <code>composer require</code>,
                 la fondation partagée est <code class="bg-gray-100 px-1 rounded text-xs">astral-php/astral-core</code> <strong>1.2.3</strong>
@@ -2041,7 +2042,7 @@ CODE) ?>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-sm">
                 <div class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
                     <p class="font-semibold text-indigo-800 mb-1">Applications</p>
-                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (MVC) <strong>1.2.3</strong> ; futur <code>astral-blog</code>, <code>astral-shop</code></p>
+                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (démo) ; <strong>astral-starter</strong> ; <strong>astral-blog</strong> ; futur <code>astral-shop</code></p>
                 </div>
                 <div class="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
                     <p class="font-semibold text-emerald-800 mb-1">Core</p>
@@ -2104,10 +2105,21 @@ CODE) ?>
                             <td class="px-4 py-3 text-gray-600">Throttling login, remember-me, journal des tentatives (fichier + DB optionnelle).</td>
                             <td class="px-4 py-3"><a href="https://packagist.org/packages/astral-php/astral-auth-extra" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a></td>
                         </tr>
-                        <tr class="bg-amber-50/40">
+                        <tr class="bg-emerald-50/50">
+                            <td class="px-4 py-3 font-mono text-xs">astral-php/astral-starter</td>
+                            <td class="px-4 py-3 text-gray-600">
+                                <strong>Application</strong> base vierge (<code>create-project</code>) — auth, admin, layout simple.
+                                Voir <a href="#astral-starter" class="text-indigo-600 hover:underline">section dédiée</a>.
+                            </td>
+                            <td class="px-4 py-3 text-emerald-700 text-xs font-medium">0.1.0</td>
+                        </tr>
+                        <tr class="bg-emerald-50/50">
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-blog</td>
-                            <td class="px-4 py-3 text-gray-600">Future <strong>application</strong> (<code>create-project</code>) — MVP local 0.3 ; publication <strong>après astral-core 1.2.3</strong>. Voir <a href="#astral-blog" class="text-indigo-600 hover:underline">section dédiée</a>.</td>
-                            <td class="px-4 py-3 text-gray-400">—</td>
+                            <td class="px-4 py-3 text-gray-600">
+                                <strong>Application</strong> blog 1.0 (<code>create-project</code>) — base starter + métier.
+                                Voir <a href="#astral-blog" class="text-indigo-600 hover:underline">section dédiée</a>.
+                            </td>
+                            <td class="px-4 py-3 text-emerald-700 text-xs font-medium">1.0.0</td>
                         </tr>
                         <tr class="bg-amber-50/40">
                             <td class="px-4 py-3 font-mono text-xs">astral-php/astral-extend-orm</td>
@@ -2130,35 +2142,63 @@ CODE) ?>
             </p>
         </section>
 
+        <!-- ─────────────────── ASTRAL-STARTER ─────────────────── -->
+        <section id="astral-starter">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">astral-starter <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full align-middle">0.1.0</span></h2>
+            <p class="text-gray-600 text-sm mb-4">
+                Application <strong>from scratch</strong> : base vierge pour démarrer un projet sans le bruit de la démo MVC.
+                Installation :
+                <code class="bg-gray-100 px-1 rounded text-xs">composer create-project astral-php/astral-starter</code>
+                ·
+                <a href="https://packagist.org/packages/astral-php/astral-starter" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a>
+                ·
+                <a href="https://github.com/astral-php/astral-starter" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">GitHub</a>.
+            </p>
+            <h3 class="font-semibold text-gray-800 mt-4 mb-2">Périmètre cible</h3>
+            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 mb-4">
+                <li>Dépendance <code>astral-php/astral-core</code></li>
+                <li>Auth : login / register / logout (premier compte = admin)</li>
+                <li>Admin : gestion des utilisateurs / rôles</li>
+                <li>Layout simple + page d’accueil avec liens GitHub et site officiel</li>
+                <li><strong>Sans</strong> articles démo, API sample, <code>/docs</code> embarquée, blog</li>
+            </ul>
+            <p class="text-gray-500 text-xs">
+                Sert de socle à <a href="#astral-blog" class="text-indigo-600 hover:underline">astral-blog 1.0</a>
+                et aux projets métier custom.
+            </p>
+        </section>
+
         <!-- ─────────────────── ASTRAL-BLOG ─────────────────── -->
         <section id="astral-blog">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">astral-blog <span class="text-sm font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full align-middle">MVP local → app future</span></h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">astral-blog <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full align-middle">1.0.0</span></h2>
             <p class="text-gray-600 text-sm mb-4">
-                Blog / CMS : MVP local <strong>0.3.0</strong> dans <code class="bg-gray-100 px-1 rounded text-xs">components-astral/astral-blog/</code>
-                (articles, catégories, tags, recherche, pagination, commentaires modérés).
-                <strong>Orientation :</strong> application clé en main via <code>composer create-project</code> —
-                <strong>différée</strong> jusqu’après <code>astral-core</code> <strong>1.2.3</strong> (voir <code>astral.md</code>).
+                Application blog complète (<code>create-project</code>) basée sur
+                <a href="#astral-starter" class="text-indigo-600 hover:underline">astral-starter</a> + métier blog.
+                Installation :
+                <code class="bg-gray-100 px-1 rounded text-xs">composer create-project astral-php/astral-blog</code>
+                ·
+                <a href="https://packagist.org/packages/astral-php/astral-blog" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">Packagist</a>
+                ·
+                <a href="https://github.com/astral-php/astral-blog" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">GitHub</a>.
             </p>
 
-            <h3 class="font-semibold text-gray-800 mt-6 mb-2">Fonctionnalités (0.3)</h3>
+            <h3 class="font-semibold text-gray-800 mt-6 mb-2">Fonctionnalités (1.0)</h3>
             <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 mb-4">
+                <li>Auth + admin utilisateurs (hérités du starter)</li>
                 <li>Tables <code>blog_posts</code>, <code>blog_categories</code>, <code>blog_tags</code>, <code>blog_post_tag</code>, <code>blog_comments</code></li>
                 <li>Front : <code>/blog</code> (+ <code>?q=</code>), <code>/blog/:slug</code>, catégorie, tag, commentaires (pending → modération)</li>
                 <li>Admin : CRUD posts / catégories / tags + modération <code>/admin/blog/comments</code></li>
-                <li>UI recommandée : layouts <code>astral-template</code> + formulaires <code>astral-form</code></li>
-                <li>Routes explicites via <code>routes/blog.php</code> (paramètres Astral <code>:slug</code> / <code>:id</code>)</li>
+                <li>UI starter (Fraunces / DM Sans, accent vert) — pas de dépendance <code>astral-template</code></li>
             </ul>
 
-            <h3 class="font-semibold text-gray-800 mt-6 mb-2">Activation (projet hôte)</h3>
-            <pre class="bg-gray-900 text-green-400 text-xs rounded-xl p-4 overflow-x-auto mb-3"><code>// config/dependencies.php
-BlogServiceProvider::class,
-
-// config/routes.php
-$blogRoutes = require BASE_PATH . '/vendor/astral-php/astral-blog/routes/blog.php';
-$blogRoutes($router);</code></pre>
+            <h3 class="font-semibold text-gray-800 mt-6 mb-2">Démarrage</h3>
+            <pre class="bg-gray-900 text-green-400 text-xs rounded-xl p-4 overflow-x-auto mb-3"><code>composer create-project astral-php/astral-blog mon-blog
+cd mon-blog
+cp .env.example .env
+php bin/console migrate
+composer run serve   # http://127.0.0.1:8083</code></pre>
             <p class="text-gray-600 text-sm mb-4">
-                Copier les migrations et les vues <code>views/astral-blog/</code> vers le projet, puis
-                <code class="bg-gray-100 px-1 rounded">php bin/console migrate</code>.
+                Puis <code>/register</code> (premier compte = admin) → <code>/admin/blog/posts</code>.
             </p>
 
             <h3 class="font-semibold text-gray-800 mt-6 mb-2">Auth &amp; inscriptions</h3>
@@ -2194,10 +2234,12 @@ $blogRoutes($router);</code></pre>
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
                     ['✅', 'Écosystème astral-* (1.2.x)',   'Packagist : form, vite, utilities, template, auth-extra. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
                     ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel Phase C.',                                                                                                                                true,  'done'],
-                    ['✅', 'astral-core (1.2.3)',           'Package astral-php/astral-core — GitHub astral-php/astral-core. App astral 1.2.3 require le core. Hub astral.md.',                                                                              true,  'done'],
-                    ['📦', 'astral-blog (app)',             'Reclasse en create-project (MVP local 0.3 prêt).',                                                                                                                    false, 'haute'],
-                    ['📦', 'astral-extend-orm / payment',   '1.2.x→1.3 : remanier ORM enrichi + Stripe (composants, pas de core 2.0).',                                                                                                                  false, 'haute'],
-                    ['📦', 'astral-debug / testing',        'Toolbar SQL/timing + HttpTestCase / factories (après core + blog app).',                                                                                                                                       false, 'haute'],
+                    ['✅', 'astral-core (1.2.3)',           'Package astral-php/astral-core — GitHub / Packagist. App astral 1.2.4.',                                                                              true,  'done'],
+                    ['✅', 'astral-starter (app)',          '0.1.0 — create-project : auth, admin, layout simple. Packagist / GitHub.',                                                                                                                    true,  'done'],
+                    ['✅', 'astral-blog 1.0 (app)',         '1.0.0 — create-project (starter + métier blog). Packagist / GitHub.',                                                                                                                    true,  'done'],
+                    ['📦', 'astral-extend-orm / payment / debug', 'Hub 1.2.5 : remanier ORM enrichi + Stripe + debug (composants).',                                                                                                                  false, 'haute'],
+                    ['📦', 'astral-shop (app)',             'Hub 1.2.6 éventuel — create-project e-commerce.',                                                                                                                                       false, 'moyenne'],
+                    ['📦', 'astral-testing',                'HttpTestCase / factories (après 1.2.5).',                                                                                                                                       false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
