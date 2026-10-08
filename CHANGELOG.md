@@ -11,8 +11,14 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Hub **1.2.5** prévu : extend-orm / payment / debug (quand publiés).
+- Hub **1.2.5** prévu : extend-orm / payment / debug (quand publiés) + sync hub doc.
 - Hub **1.2.6** éventuel : astral-shop ; puis core **2.x**.
+
+### Préparé (tests, sans tag hub)
+
+- Tests moteur migrés vers **`astral-core` 1.2.4** (`tests/Core`, `tests/Database`).
+- Smokes HTTP app préparés dans `tests/Http/` (nécessite core ≥ 1.2.4 ; verts au hub 1.2.5).
+- `astral-starter` **0.1.2** / `astral-blog` **1.0.2** : smokes PHPUnit + `astral-core:^1.2.4`.
 
 ---
 
