@@ -11,14 +11,27 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Hub **1.2.5** prévu : extend-orm / payment / debug (quand publiés) + sync hub doc.
 - Hub **1.2.6** éventuel : astral-shop ; puis core **2.x**.
 
-### Préparé (tests, sans tag hub)
+---
 
-- Tests moteur migrés vers **`astral-core` 1.2.4** (`tests/Core`, `tests/Database`).
-- Smokes HTTP app préparés dans `tests/Http/` (nécessite core ≥ 1.2.4 ; verts au hub 1.2.5).
-- `astral-starter` **0.1.2** / `astral-blog` **1.0.2** : smokes PHPUnit + `astral-core:^1.2.4`.
+## [1.2.5] — 2026-10-09
+
+### Ajouté / documenté
+
+- Composants Packagist validés via sandbox : **`astral-extend-orm` 0.1.1**, **`astral-payment` 0.1.2**, **`astral-debug` 0.1.0**.
+- README + `/docs` : statut composants à jour (plus « en cours »), roadmap → **1.2.6** / core **2.x**.
+- Sandbox locale : MailPit + Stripe test (checkout + webhook) OK.
+
+### Correctifs composants (packages)
+
+- `astral-extend-orm` 0.1.1 : `fill()` coerce les scalaires vers les propriétés typées PHP 8.
+- `astral-payment` 0.1.1–0.1.2 : `OrderDao` LSP + `JsonResponse::make()` sur le webhook (évite HTTP 500 après succès).
+
+### Modifié
+
+- Badge / `APP_VERSION` / fallback config portés à **1.2.5**.
+- Smokes HTTP hub (`tests/Http/`) alignés core ≥ 1.2.4.
 
 ---
 

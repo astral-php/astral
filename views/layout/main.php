@@ -25,10 +25,13 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
 
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
+                <!-- Logo + version hub -->
+                <a href="/" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
                     <span class="bg-white/20 rounded-lg px-2 py-0.5 text-sm font-mono">✦</span>
                     Astral MVC
+                    <span class="text-[11px] font-semibold font-mono tracking-wide bg-white/15 text-indigo-100 border border-white/20 rounded-full px-2 py-0.5 leading-none">
+                        v<?= htmlspecialchars($appVersion ?? '1.2.5', ENT_QUOTES, 'UTF-8') ?>
+                    </span>
                 </a>
 
                 <!-- Navigation -->

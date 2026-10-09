@@ -28,7 +28,7 @@
 <!-- Hero -->
 <div class="text-center py-14">
     <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6 border border-indigo-100">
-        v<?= htmlspecialchars($version, ENT_QUOTES, 'UTF-8') ?> &bull; PSR-4 &bull; Tailwind CSS
+        PSR-4 &bull; Tailwind CSS
     </div>
     <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
         <?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>

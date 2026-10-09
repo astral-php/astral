@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Http;
 
 /**
- * Smokes HTTP du hub astral (démo) — étendu au hub 1.2.5.
+ * Smokes HTTP du hub astral (démo) — hub 1.2.5.
  * Nécessite astral-core ≥ 1.2.4 (Router::handle).
  */
 final class SmokeRoutesTest extends HttpSmokeTestCase

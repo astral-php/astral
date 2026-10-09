@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Bootstrap léger pour smokes HTTP (Router::handle → Response, sans send()).
- * Requiert astral-core ≥ 1.2.4. Activé pleinement au hub 1.2.5.
+ * Requiert astral-core ≥ 1.2.4. Activé au hub 1.2.5.
  */
 abstract class HttpSmokeTestCase extends TestCase
 {

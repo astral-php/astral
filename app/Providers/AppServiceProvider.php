@@ -102,10 +102,15 @@ final class AppServiceProvider implements ServiceProviderInterface
         // Contrôleurs
         // -------------------------------------------------------------------------
 
+        $appVersion = (string) ($appConfig['version'] ?? '1.2.5');
+
+        // Disponible dans toutes les vues (badge nav, etc.)
+        $container->make(View::class)->share('appVersion', $appVersion);
+
         $container->bind(HomeController::class, fn(Container $c) => new HomeController(
             view:    $c->make(View::class),
             userDao: $c->make(UserDao::class),
-            version: (string) ($appConfig['version'] ?? '1.0.0'),
+            version: $appVersion,
         ));
 
         $container->bind(UserController::class, fn(Container $c) => new UserController(
