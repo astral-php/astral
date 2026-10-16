@@ -16,3 +16,4 @@ prompts/*.md
 /components/*
 !/components/astral-form/
 !/components/astral-form/**
+.cursor/skills/astral-informations/

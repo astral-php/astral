@@ -11,7 +11,22 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Hub **1.2.6** éventuel : astral-shop ; puis core **2.x**.
+- Suite : **core 2.x** ; optimisation shop (1.5) ; testing.
+
+---
+
+## [1.2.6] — 2026-10-16
+
+### Ajouté / documenté
+
+- Application **`astral-php/astral-shop` 1.0.0** — `composer create-project astral-php/astral-shop ma_boutique`.
+- Boutique : Stripe + offline, port forfait (`astral-shipping`), facture PDF, remboursements, retours colis, pages légales modèles.
+- Guides install dans le dépôt shop : `docs/Installation/` (pas à pas + ouvrir une boutique FR).
+- README + `/docs` : shop listé parmi les apps ; roadmap → core **2.x**.
+
+### Modifié
+
+- Badge / `APP_VERSION` / fallback config portés à **1.2.6**.
 
 ---
 

@@ -159,15 +159,15 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v1.2.5</strong>
-                        (<code class="text-indigo-100">astral-core</code> ^1.2.4 — apps starter / blog — écosystème : form, vite, utilities, template, auth-extra, extend-orm, payment, debug).
+                        Documentation à jour pour Astral MVC <strong>v1.2.6</strong>
+                        (<code class="text-indigo-100">astral-core</code> ^1.2.4 — apps starter / blog / <strong>shop</strong> — écosystème : form, vite, utilities, template, auth-extra, extend-orm, payment, debug, shipping).
                     </span>
                 </p>
             </div>
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
             <p class="text-gray-600 text-sm mb-3">
-                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.5</strong>) :
+                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.6</strong>) :
             </p>
             <?php codeBlock('bash', <<<'CODE'
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -177,7 +177,8 @@ cp .env.example .env
 php -S localhost:8080 -t public
 CODE) ?>
             <p class="text-gray-500 text-xs mt-3 mb-3">
-                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.5 mon-projet</code>
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.6 mon-projet</code>
+                · Boutique : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral-shop ma_boutique</code>
             </p>
             <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
             <?php codeBlock('bash', <<<'CODE'
@@ -1327,7 +1328,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.2.5
+APP_VERSION=1.2.6
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -2042,7 +2043,7 @@ CODE) ?>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-sm">
                 <div class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
                     <p class="font-semibold text-indigo-800 mb-1">Applications</p>
-                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (démo) ; <strong>astral-starter</strong> ; <strong>astral-blog</strong> ; futur <code>astral-shop</code></p>
+                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (démo) ; <strong>astral-starter</strong> ; <strong>astral-blog</strong> ; <strong>astral-shop</strong></p>
                 </div>
                 <div class="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
                     <p class="font-semibold text-emerald-800 mb-1">Core</p>
@@ -2240,12 +2241,12 @@ composer run serve   # http://127.0.0.1:8083</code></pre>
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
                     ['✅', 'Écosystème astral-* (1.2.x)',   'Packagist : form, vite, utilities, template, auth-extra, extend-orm, payment, debug. Organisation astral-php. PHP 8.1+.',                                                                                    true,  'done'],
                     ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel Phase C.',                                                                                                                                true,  'done'],
-                    ['✅', 'astral-core (^1.2.4)',          'Package astral-php/astral-core — GitHub / Packagist. App astral 1.2.5.',                                                                              true,  'done'],
+                    ['✅', 'astral-core (^1.2.4)',          'Package astral-php/astral-core — GitHub / Packagist. App astral 1.2.6.',                                                                              true,  'done'],
                     ['✅', 'astral-starter (app)',          '0.1.2 — create-project : auth, admin, layout simple. Packagist / GitHub.',                                                                                                                    true,  'done'],
                     ['✅', 'astral-blog 1.0 (app)',         '1.0.2 — create-project (starter + métier blog). Packagist / GitHub.',                                                                                                                    true,  'done'],
-                    ['✅', 'astral-extend-orm / payment / debug', 'Hub 1.2.5 : ORM 0.1.1, payment 0.1.2, debug 0.1.0 — Packagist + sandbox (Stripe / MailPit).',                                                                                                                  true,  'done'],
-                    ['📦', 'astral-shop (app)',             'Hub 1.2.6 éventuel — create-project e-commerce.',                                                                                                                                       false, 'moyenne'],
-                    ['📦', 'astral-testing',                'HttpTestCase / factories (après 1.2.5).',                                                                                                                                       false, 'haute'],
+                    ['✅', 'astral-shop 1.0 (app)',         '1.0.0 — create-project e-commerce (Stripe, port, retours, légal). Packagist / GitHub.',                                                                                                  true,  'done'],
+                    ['✅', 'astral-extend-orm / payment / debug', 'Hub 1.2.5 : ORM 0.1.1, payment 0.1.2+, debug 0.1.0 — Packagist + sandbox (Stripe / MailPit).',                                                                                                                true,  'done'],
+                    ['📦', 'astral-testing',                'HttpTestCase / factories (après 1.2.6).',                                                                                                                                       false, 'haute'],
                     ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
