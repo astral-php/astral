@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.6-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.7-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -40,7 +40,7 @@ Trois familles :
 
 | Package | Rôle | Statut |
 |--------|------|--------|
-| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.6** |
+| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.7** |
 | `astral-php/astral-starter` | Base vierge (auth + admin + layout simple) | ✅ **0.1.2** — [Packagist](https://packagist.org/packages/astral-php/astral-starter) · [GitHub](https://github.com/astral-php/astral-starter) |
 | `astral-php/astral-blog` | Blog / CMS clé en main | ✅ **1.0.2** — [Packagist](https://packagist.org/packages/astral-php/astral-blog) · [GitHub](https://github.com/astral-php/astral-blog) |
 | `astral-php/astral-shop` | Boutique e-commerce (Stripe, port, retours, légal) | ✅ **1.0.0** — [Packagist](https://packagist.org/packages/astral-php/astral-shop) · [GitHub](https://github.com/astral-php/astral-shop) |
@@ -62,7 +62,7 @@ composer require astral-php/astral-debug
 
 Pour les composants : enregistrer le `ServiceProvider` dans `config/dependencies.php` (voir le README de chaque dépôt). Intégration locale : sandbox workspace (non publié).
 
-> **Roadmap :** hub **1.2.6** (shop 1.0.0) livré · suite **core 2.x**.  
+> **Roadmap :** hub **1.2.7** (shop 1.1 + shipping 0.5) livré · suite PayPal / **1.2.8** / **core 2.x**.  
 > Doc publique : cette page + [`/docs`](./views/docs/index.php) · organisation [Packagist](https://packagist.org/packages/astral-php/) · [GitHub](https://github.com/astral-php).
 
 ---
@@ -125,7 +125,7 @@ astral-mvc/
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.6**) :
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.7**) :
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -133,10 +133,10 @@ cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.6** :
+Pour figer exactement la **1.2.7** :
 
 ```bash
-composer create-project astral-php/astral:1.2.6 mon-projet
+composer create-project astral-php/astral:1.2.7 mon-projet
 ```
 
 Boutique e-commerce :
