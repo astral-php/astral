@@ -11,7 +11,7 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Suite : PayPal (shop 1.1.1) · hub **1.2.8** (shop 1.5 + testing) · **core 2.x**.
+- Prochaine release hub : **1.2.7.1** — PayPal (shop **1.1.1** + `astral-paypal`) ; puis **1.2.8** (shop 1.5 + testing) · **core 2.x**.
 
 ---
 
@@ -21,7 +21,8 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 - **Astral Shop 1.1.0** — Colissimo / Mondial Relay (barèmes), poids produits (`weight_g`), import CSV, point relais checkout.
 - **astral-shipping 0.5.3** — barèmes matures, limites transporteur, doc sandbox API (hors calcul port).
-- README + `/docs` : versions shop / shipping à jour ; roadmap → **1.2.8** / core **2.x**.
+- README + `/docs` : versions shop / shipping à jour.
+- **Note :** PayPal (prévu initialement dans 1.2.7) → patch hub **1.2.7.1** après shop 1.1.1.
 
 ### Modifié
 
