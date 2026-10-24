@@ -5,15 +5,6 @@
 /storage/cache/
 /.phpunit.result.cache
 composer.lock
-SPEC.md
-astral.md
-astral-components.md
-astral-plan.md
-astral-site.md
-Astral — Recommandations site vitrine.md
 .vscode
-prompts/*.md
-/components/*
-!/components/astral-form/
-!/components/astral-form/**
 .cursor/skills/astral-informations/
+.agents/

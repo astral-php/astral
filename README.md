@@ -1,7 +1,7 @@
 # Astral MVC — Framework PHP 8.1+ minimaliste
 
 [![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.7-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.7.1-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
@@ -33,17 +33,19 @@ Trois familles :
 | `astral-php/astral-template` | Layouts Tailwind admin / marketing + partials UI | [Packagist](https://packagist.org/packages/astral-php/astral-template) · [GitHub](https://github.com/astral-php/astral-template) |
 | `astral-php/astral-auth-extra` | Throttling login, remember-me, journal des tentatives | [Packagist](https://packagist.org/packages/astral-php/astral-auth-extra) · [GitHub](https://github.com/astral-php/astral-auth-extra) |
 | `astral-php/astral-extend-orm` | Modèles enrichis (fillable, casts, accessors, relations) | ✅ **0.1.1** — [Packagist](https://packagist.org/packages/astral-php/astral-extend-orm) · [GitHub](https://github.com/astral-php/astral-extend-orm) |
-| `astral-php/astral-payment` | Paiements Stripe (checkout, webhooks) | ✅ **0.1.2** — [Packagist](https://packagist.org/packages/astral-php/astral-payment) · [GitHub](https://github.com/astral-php/astral-payment) |
+| `astral-php/astral-payment` | Paiements Stripe (checkout, webhooks) | ✅ **0.1.3** — [Packagist](https://packagist.org/packages/astral-php/astral-payment) · [GitHub](https://github.com/astral-php/astral-payment) |
+| `astral-php/astral-paypal` | Paiements PayPal (Orders v2, capture, webhooks) | ✅ **0.1.0** — [Packagist](https://packagist.org/packages/astral-php/astral-paypal) · [GitHub](https://github.com/astral-php/astral-paypal) |
+| `astral-php/astral-shipping` | Frais de port (forfait, Colissimo/MR, retrait) | ✅ **0.5.3** — [Packagist](https://packagist.org/packages/astral-php/astral-shipping) · [GitHub](https://github.com/astral-php/astral-shipping) |
 | `astral-php/astral-debug` | Debug bar (Collector, middleware) | ✅ **0.1.0** — [Packagist](https://packagist.org/packages/astral-php/astral-debug) · [GitHub](https://github.com/astral-php/astral-debug) |
 
 ### Applications
 
 | Package | Rôle | Statut |
 |--------|------|--------|
-| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.7** |
+| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.7.1** |
 | `astral-php/astral-starter` | Base vierge (auth + admin + layout simple) | ✅ **0.1.2** — [Packagist](https://packagist.org/packages/astral-php/astral-starter) · [GitHub](https://github.com/astral-php/astral-starter) |
 | `astral-php/astral-blog` | Blog / CMS clé en main | ✅ **1.0.2** — [Packagist](https://packagist.org/packages/astral-php/astral-blog) · [GitHub](https://github.com/astral-php/astral-blog) |
-| `astral-php/astral-shop` | Boutique e-commerce (Stripe, port, retours, légal) | ✅ **1.0.0** — [Packagist](https://packagist.org/packages/astral-php/astral-shop) · [GitHub](https://github.com/astral-php/astral-shop) |
+| `astral-php/astral-shop` | Boutique e-commerce (Stripe, PayPal, shipping, retours) | ✅ **1.1.1** — [Packagist](https://packagist.org/packages/astral-php/astral-shop) · [GitHub](https://github.com/astral-php/astral-shop) |
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -57,12 +59,14 @@ composer require astral-php/astral-template
 composer require astral-php/astral-auth-extra
 composer require astral-php/astral-extend-orm
 composer require astral-php/astral-payment
+composer require astral-php/astral-paypal
+composer require astral-php/astral-shipping
 composer require astral-php/astral-debug
 ```
 
 Pour les composants : enregistrer le `ServiceProvider` dans `config/dependencies.php` (voir le README de chaque dépôt). Intégration locale : sandbox workspace (non publié).
 
-> **Roadmap :** hub **1.2.7** (shop 1.1 + shipping 0.5) livré · suite PayPal / **1.2.8** / **core 2.x**.  
+> **Roadmap :** hub **1.2.7.1** (PayPal / shop 1.1.1) livré · suite **1.2.8** / **core 2.x**.  
 > Doc publique : cette page + [`/docs`](./views/docs/index.php) · organisation [Packagist](https://packagist.org/packages/astral-php/) · [GitHub](https://github.com/astral-php).
 
 ---
@@ -125,7 +129,7 @@ astral-mvc/
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.7**) :
+Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.7.1**) :
 
 ```bash
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -133,10 +137,10 @@ cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.7** :
+Pour figer exactement la **1.2.7.1** :
 
 ```bash
-composer create-project astral-php/astral:1.2.7 mon-projet
+composer create-project astral-php/astral:1.2.7.1 mon-projet
 ```
 
 Boutique e-commerce :

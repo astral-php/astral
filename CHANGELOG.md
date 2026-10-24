@@ -11,7 +11,22 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Prochaine release hub : **1.2.7.1** — PayPal (shop **1.1.1** + `astral-paypal`) ; puis **1.2.8** (shop 1.5 + testing) · **core 2.x**.
+- Prochaine release hub : **1.2.8** — shop **1.5** + **astral-testing 0.1** · puis **core 2.x**.
+
+---
+
+## [1.2.7.1] — 2026-10-24
+
+### Ajouté / documenté
+
+- **Astral Shop 1.1.1** — paiement **PayPal** (Orders v2 redirect, capture, webhook, refunds).
+- **astral-paypal 0.1.0** — composant Packagist (`astral-php/astral-paypal`).
+- README + `/docs` : PayPal + versions shop / package à jour.
+- News site : `astral-shop-1-1-1-paypal-hub-1-2-7-1`.
+
+### Modifié
+
+- Badge / `APP_VERSION` / fallback config portés à **1.2.7.1**.
 
 ---
 
