@@ -7,11 +7,22 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
-## [Unreleased]
+## [2.0.0] — 2026-10-28
 
-### Orienté (doc)
+### Breaking
 
-- Prochaine feuille : hub / **astral-core 2.0** (breaking) — après clôture de la ligne ^1.
+- PHP minimum : **`^8.3`**.
+- Dépendance **`astral-php/astral-core:^2.0`** (Role enum, Cache renforcé).
+- Remplacement `Role::ADMIN` / `USER` / `GUEST` → `Role::Admin` / `User` / `Guest`.
+
+### Ajouté
+
+- [`UPGRADE-2.0.md`](./UPGRADE-2.0.md) — migration hub 1.x → 2.0.
+- Alignement démo (User, UserDao, vues admin) sur l’API Role 2.0.
+
+### Modifié
+
+- README, `/docs`, `APP_VERSION` / config → **2.0.0**.
 
 ---
 

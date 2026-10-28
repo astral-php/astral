@@ -20,7 +20,7 @@ final class HomeController extends AbstractController
     public function __construct(
         View              $view,
         private UserDao   $userDao,
-        private string    $version = '1.2.8',
+        private string    $version = '2.0.0',
     ) {
         parent::__construct($view);
     }

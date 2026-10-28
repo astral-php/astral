@@ -48,7 +48,7 @@
                 Créer le compte administrateur
             </a>
         <?php elseif ($auth->check()): ?>
-            <?php if ($auth->is(\Core\Auth\Role::ADMIN)): ?>
+            <?php if ($auth->is(\Core\Auth\Role::Admin)): ?>
                 <a href="/admin/users"
                    class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow">
                     Ouvrir l’administration
@@ -216,7 +216,7 @@
         <p class="font-semibold text-gray-800">
             Connecté en tant que
             <span class="text-indigo-700"><?= htmlspecialchars($auth->name(), ENT_QUOTES, 'UTF-8') ?></span>
-            <?php if ($auth->is(\Core\Auth\Role::ADMIN)): ?>
+            <?php if ($auth->is(\Core\Auth\Role::Admin)): ?>
                 <span class="ml-2 inline-flex items-center gap-1 bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-amber-200">
                     Admin
                 </span>
@@ -224,7 +224,7 @@
         </p>
         <p class="text-sm text-gray-500 mt-0.5"><?= htmlspecialchars($auth->email(), ENT_QUOTES, 'UTF-8') ?></p>
     </div>
-    <?php if ($auth->is(\Core\Auth\Role::ADMIN)): ?>
+    <?php if ($auth->is(\Core\Auth\Role::Admin)): ?>
         <a href="/admin/users"
            class="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition shadow">
             Ouvrir l’administration &rarr;

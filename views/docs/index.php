@@ -150,24 +150,24 @@
                     <span class="text-3xl font-mono font-bold bg-white/20 px-3 py-1 rounded-lg">✦</span>
                     <div>
                         <h1 class="text-3xl font-bold">Astral MVC</h1>
-                        <p class="text-indigo-200 text-sm">Framework PHP 8.1+ &mdash; Minimaliste &bull; Moderne &bull; Orienté objet</p>
+                        <p class="text-indigo-200 text-sm">Framework PHP 8.3+ &mdash; Minimaliste &bull; Moderne &bull; Orienté objet</p>
                     </div>
                 </div>
                 <p class="text-indigo-100 leading-relaxed">
-                    Astral MVC est un micro-framework PHP 8.1+ (compatible <strong class="text-white">8.1 → 8.5</strong>) sans dépendance externe inutile.
+                    Astral MVC est un micro-framework PHP 8.3+ (compatible <strong class="text-white">8.3 → 8.5</strong>) sans dépendance externe inutile.
                     Son objectif : vous donner <strong class="text-white">tous les outils essentiels</strong> d'une vraie application web
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v1.2.8</strong>
-                        (<code class="text-indigo-100">astral-core</code> ^1.2.4 — apps starter / blog / <strong>shop</strong> — écosystème : form, vite, utilities, template, auth-extra, extend-orm, payment, paypal, shipping, debug).
+                        Documentation à jour pour Astral MVC <strong>v2.0.0</strong>
+                        (<code class="text-indigo-100">astral-core</code> ^2.0 — PHP 8.3+, Role enum — apps starter / blog / <strong>shop</strong> encore sur ^1 jusqu’à migration).
                     </span>
                 </p>
             </div>
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
             <p class="text-gray-600 text-sm mb-3">
-                Via Packagist (branche <strong>1.2.x</strong>, actuelle <strong>1.2.8</strong>) :
+                Via Packagist (branche <strong>2.x</strong>, actuelle <strong>2.0.0</strong>) :
             </p>
             <?php codeBlock('bash', <<<'CODE'
 composer create-project astral-php/astral:^1.2 mon-projet
@@ -177,7 +177,7 @@ cp .env.example .env
 php -S localhost:8080 -t public
 CODE) ?>
             <p class="text-gray-500 text-xs mt-3 mb-3">
-                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:1.2.8 mon-projet</code>
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:2.0.0 mon-projet</code>
                 · Boutique : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral-shop ma_boutique</code>
             </p>
             <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
@@ -654,7 +654,7 @@ $auth->id();              // int|null
 $auth->name();            // string
 $auth->email();           // string
 $auth->role();            // string ('admin', 'user', …)
-$auth->is(Role::ADMIN);   // bool
+$auth->is(Role::Admin);   // bool
 $auth->can('delete-user'); // bool (basé sur le rôle)
 CODE) ?>
 
@@ -662,9 +662,9 @@ CODE) ?>
             <?php codeBlock('php', <<<'CODE'
 use Core\Auth\Role;
 
-Role::ADMIN  // 'admin' — tous les droits
-Role::USER   // 'user'  — droits standard
-Role::GUEST  // 'guest' — non connecté
+Role::Admin  // 'admin' — tous les droits
+Role::User   // 'user'  — droits standard
+Role::Guest  // 'guest' — non connecté
 CODE) ?>
 
             <h3 class="font-semibold text-gray-800 mt-5 mb-2">Middlewares d'authentification</h3>
@@ -1201,7 +1201,7 @@ CODE) ?>
                 En production (<code>APP_DEBUG=false</code>), message générique uniquement.
             </p>
             <p class="text-gray-500 text-xs mt-2">
-                Prérequis PHP : <strong>8.1 → 8.5</strong>.
+                Prérequis PHP : <strong>8.3 → 8.5</strong>.
             </p>
         </section>
 
@@ -1328,7 +1328,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=1.2.8
+APP_VERSION=2.0.0
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -2037,7 +2037,7 @@ CODE) ?>
                 Orientation produit :
                 les <strong>applications</strong> s’installent via <code>composer create-project</code>,
                 les <strong>composants</strong> via <code>composer require</code>,
-                la fondation partagée est <code class="bg-gray-100 px-1 rounded text-xs">astral-php/astral-core</code> <strong>1.2.3</strong>
+                la fondation partagée est <code class="bg-gray-100 px-1 rounded text-xs">astral-php/astral-core</code> <strong>2.0.0</strong>
                 (<a href="https://github.com/astral-php/astral-core" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">GitHub</a>).
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-sm">
@@ -2047,7 +2047,7 @@ CODE) ?>
                 </div>
                 <div class="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
                     <p class="font-semibold text-emerald-800 mb-1">Core</p>
-                    <p class="text-xs text-emerald-700"><code>astral-core</code> <strong>1.2.3</strong> —
+                    <p class="text-xs text-emerald-700"><code>astral-core</code> <strong>2.0.0</strong> —
                         <a href="https://github.com/astral-php/astral-core" class="underline hover:text-emerald-900" target="_blank" rel="noopener">astral-php/astral-core</a></p>
                 </div>
                 <div class="rounded-xl border border-amber-100 bg-amber-50/50 p-4">
@@ -2241,7 +2241,7 @@ composer run serve   # http://127.0.0.1:8083</code></pre>
                     ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
                     ['✅', 'Écosystème astral-* (1.2.x)',   'Packagist : form, vite, utilities, template, auth-extra, extend-orm, payment, paypal, shipping, worker, testing, debug. PHP 8.1+.',                                                                                    true,  'done'],
                     ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel Phase C.',                                                                                                                                true,  'done'],
-                    ['✅', 'astral-core (^1.2.4)',          'Package astral-php/astral-core — GitHub / Packagist. App astral 1.2.8.',                                                                              true,  'done'],
+                    ['✅', 'astral-core (^2.0)',            'Package astral-php/astral-core 2.0 — PHP 8.3+, Role enum, Cache. Hub astral 2.0.0.',                                                                              true,  'done'],
                     ['✅', 'astral-starter (app)',          '0.1.2 — create-project : auth, admin, layout simple. Packagist / GitHub.',                                                                                                                    true,  'done'],
                     ['✅', 'astral-blog 1.0 (app)',         '1.0.2 — create-project (starter + métier blog). Packagist / GitHub.',                                                                                                                    true,  'done'],
                     ['✅', 'astral-shop 1.5 (app)',         '1.5.0 — worker, cache, stock ; PayPal + shipping. Packagist.',                                                                                                  true,  'done'],

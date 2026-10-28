@@ -1,15 +1,15 @@
-# Astral MVC — Framework PHP 8.1+ minimaliste
+# Astral MVC — Framework PHP 8.3+ minimaliste
 
-[![PHP](https://img.shields.io/badge/PHP-8.1%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
-[![Version](https://img.shields.io/badge/version-1.2.8-blue)](CHANGELOG.md)
+[![PHP](https://img.shields.io/badge/PHP-8.3%E2%80%938.5-777BB4?logo=php&logoColor=white)](https://www.php.net)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%209.6-9933CC)](phpunit.xml)
 
-Micro-framework MVC orienté objet, compatible **PHP 8.1 → 8.5**.
-Dépendances de production : `vlucas/phpdotenv`, `phpmailer/phpmailer`.
+Micro-framework MVC orienté objet, compatible **PHP 8.3 → 8.5**.
+Dépendances de production : `vlucas/phpdotenv`, `phpmailer/phpmailer` (via `astral-core`).
 Minimaliste par design, puissant par convention.
 
-**Prérequis :** PHP **≥ 8.1** (recommandé : 8.2+ / 8.3+ / 8.4 / 8.5).
+**Prérequis :** PHP **≥ 8.3**. Migration depuis 1.x : voir [`UPGRADE-2.0.md`](./UPGRADE-2.0.md) et le guide [astral-core](https://github.com/astral-php/astral-core/blob/main/UPGRADE-2.0.md).
 
 ---
 
@@ -20,7 +20,7 @@ Trois familles :
 | Famille | Commande | Exemples |
 |--------|----------|----------|
 | **Application** | `composer create-project` | `astral` (démo) ; **`astral-starter`** ; **`astral-blog`** ; **`astral-shop`** |
-| **Core** | dépendance Composer | **[`astral-php/astral-core`](https://github.com/astral-php/astral-core) ^1.2.4** |
+| **Core** | dépendance Composer | **[`astral-php/astral-core`](https://github.com/astral-php/astral-core) ^2.0** |
 | **Composant** | `composer require` | form, vite, utilities, template, auth-extra, extend-orm, payment, paypal, shipping, worker, testing, debug… |
 
 ### Composants optionnels
@@ -44,13 +44,13 @@ Trois familles :
 
 | Package | Rôle | Statut |
 |--------|------|--------|
-| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **1.2.8** |
+| `astral-php/astral` | Démo / learning (MVC complet) | ✅ **2.0.0** |
 | `astral-php/astral-starter` | Base vierge (auth + admin + layout simple) | ✅ **0.1.2** — [Packagist](https://packagist.org/packages/astral-php/astral-starter) · [GitHub](https://github.com/astral-php/astral-starter) |
 | `astral-php/astral-blog` | Blog / CMS clé en main | ✅ **1.0.2** — [Packagist](https://packagist.org/packages/astral-php/astral-blog) · [GitHub](https://github.com/astral-php/astral-blog) |
 | `astral-php/astral-shop` | Boutique e-commerce (Stripe, PayPal, worker, shipping) | ✅ **1.5.0** — [Packagist](https://packagist.org/packages/astral-php/astral-shop) · [GitHub](https://github.com/astral-php/astral-shop) |
 
 ```bash
-composer create-project astral-php/astral:^1.2 mon-projet
+composer create-project astral-php/astral:^2.0 mon-projet
 composer create-project astral-php/astral-starter mon-app
 composer create-project astral-php/astral-blog mon-blog
 composer create-project astral-php/astral-shop ma_boutique
@@ -70,7 +70,7 @@ composer require astral-php/astral-debug
 
 Pour les composants : enregistrer le `ServiceProvider` dans `config/dependencies.php` (voir le README de chaque dépôt). Intégration locale : sandbox workspace (non publié).
 
-> **Roadmap :** hub **1.2.8** livré (shop 1.5 + testing) — **dernier ^1** · suite hub/core **2.0**.  
+> **Feuille 2.x :** hub **2.0.0** + **astral-core 2.0** (PHP 8.3+, Role enum, Cache renforcé). Suite : specs astral-cache, roadmaps apps, core 2.1.  
 > Doc publique : cette page + [`/docs`](./views/docs/index.php) · organisation [Packagist](https://packagist.org/packages/astral-php/) · [GitHub](https://github.com/astral-php).
 
 ---
@@ -129,22 +129,22 @@ astral-mvc/
 
 ## Installation
 
-**Prérequis :** PHP **8.1** ou supérieur (8.1 → 8.5).
+**Prérequis :** PHP **8.3** ou supérieur.
 
 ### Via Composer (recommandé)
 
-Crée un projet à partir de la branche **1.2.x** (actuelle : **1.2.8**) :
+Crée un projet à partir de la branche **2.x** (actuelle : **2.0.0**) :
 
 ```bash
-composer create-project astral-php/astral:^1.2 mon-projet
+composer create-project astral-php/astral:^2.0 mon-projet
 cd mon-projet
 cp .env.example .env   # puis adaptez les valeurs
 ```
 
-Pour figer exactement la **1.2.8** :
+Pour figer exactement la **2.0.0** :
 
 ```bash
-composer create-project astral-php/astral:1.2.8 mon-projet
+composer create-project astral-php/astral:2.0.0 mon-projet
 ```
 
 Boutique e-commerce :
@@ -153,7 +153,7 @@ Boutique e-commerce :
 composer create-project astral-php/astral-shop ma_boutique
 ```
 
-Dépend de [`astral-php/astral-core`](https://github.com/astral-php/astral-core) **^1.2**.
+Dépend de [`astral-php/astral-core`](https://github.com/astral-php/astral-core) **^2.0**.
 
 ### Depuis un clone Git
 
@@ -884,9 +884,9 @@ AUTH_REGISTRATION=direct   # accès immédiat après inscription
 ```php
 use Core\Auth\Role;
 
-Role::ADMIN  // 'admin'
-Role::USER   // 'user'
-Role::GUEST  // 'guest' (non connecté)
+Role::Admin  // 'admin'
+Role::User   // 'user'
+Role::Guest  // 'guest' (non connecté)
 ```
 
 ### Service Auth
@@ -901,13 +901,13 @@ $this->auth->logout();          // déconnecte
 
 $this->auth->check();           // bool : connecté ?
 $this->auth->guest();           // bool : non connecté ?
-$this->auth->is(Role::ADMIN);   // bool : rôle exact
-$this->auth->can(Role::ADMIN, Role::USER); // bool : l'un de ces rôles
+$this->auth->is(Role::Admin);   // bool : rôle exact
+$this->auth->can(Role::Admin, Role::User); // bool : l'un de ces rôles
 
 $this->auth->id();    // int|null
 $this->auth->name();  // string
 $this->auth->email(); // string
-$this->auth->role();  // string (Role::GUEST si non connecté)
+$this->auth->role();  // string (Role::Guest si non connecté)
 ```
 
 ```php
@@ -916,7 +916,7 @@ $this->auth->role();  // string (Role::GUEST si non connecté)
     Bienvenue, <?= htmlspecialchars($auth->name()) ?> !
 <?php endif ?>
 
-<?php if ($auth->is(\Core\Auth\Role::ADMIN)): ?>
+<?php if ($auth->is(\Core\Auth\Role::Admin)): ?>
     <a href="/admin">Administration</a>
 <?php endif ?>
 ```
@@ -965,13 +965,13 @@ $router->post('/register', AuthController::class, 'register')->middleware(GuestM
 
 ```php
 // Créer un admin
-$userDao->createUser('Alice', 'alice@example.com', 'secret', Role::ADMIN);
+$userDao->createUser('Alice', 'alice@example.com', 'secret', Role::Admin);
 
 // Promouvoir un utilisateur existant
-$userDao->promote(userId: 5, role: Role::ADMIN);
+$userDao->promote(userId: 5, role: Role::Admin);
 
 // Lister tous les admins
-$admins = $userDao->findByRole(Role::ADMIN);
+$admins = $userDao->findByRole(Role::Admin);
 ```
 
 ### Interface d'administration des rôles
@@ -1015,7 +1015,7 @@ final class RoleChanged implements EventInterface
 ```php
 $user->isAdmin();                       // bool
 $user->isUser();                        // bool
-$user->hasRole(Role::ADMIN, Role::USER); // bool : l'un de ces rôles
+$user->hasRole(Role::Admin, Role::User); // bool : l'un de ces rôles
 ```
 
 ### Routes d'authentification (incluses par défaut)
@@ -1480,7 +1480,7 @@ $router->group('', function (Router $r): void {
 
 ---
 
-## Fonctionnalités PHP 8.1+ utilisées
+## Fonctionnalités PHP 8.3+ utilisées
 
 - `declare(strict_types=1)` partout
 - Constructor Property Promotion + propriétés `readonly` (ex. `ErrorHandler`)
