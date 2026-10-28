@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
@@ -102,7 +102,7 @@ final class AppServiceProvider implements ServiceProviderInterface
         // Contrôleurs
         // -------------------------------------------------------------------------
 
-        $appVersion = (string) ($appConfig['version'] ?? '1.2.7.1');
+        $appVersion = (string) ($appConfig['version'] ?? '1.2.8');
 
         // Disponible dans toutes les vues (badge nav, etc.)
         $container->make(View::class)->share('appVersion', $appVersion);

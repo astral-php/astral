@@ -11,7 +11,24 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Orienté (doc)
 
-- Prochaine release hub : **1.2.8** — shop **1.5** + **astral-testing 0.1** · puis **core 2.x**.
+- Prochaine feuille : hub / **astral-core 2.0** (breaking) — après clôture de la ligne ^1.
+
+---
+
+## [1.2.8] — 2026-10-28
+
+### Ajouté / documenté
+
+- **Astral Shop 1.5.0** — worker (mail/PDF), stock idempotent, cache catalogue, checklist prod.
+- **astral-worker 0.1.0** — file d’attente sync/database/redis.
+- **astral-testing 0.1.0** — HttpTestCase, factories, fakes (events / mails / logs).
+- README + `/docs` : versions shop / worker / testing à jour.
+- News site : hub 1.2.8 + shop 1.5 + testing.
+- **Dernier tag hub sur la ligne ^1** (avant hub/core **2.0**).
+
+### Modifié
+
+- Badge / `APP_VERSION` / fallback config portés à **1.2.8**.
 
 ---
 
