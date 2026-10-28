@@ -1,4 +1,4 @@
-﻿<!-- Vue : docs/index — Documentation Astral MVC -->
+<!-- Vue : docs/index — Documentation Astral MVC -->
 
 <!-- Sidebar + contenu côte à côte -->
 <div class="flex gap-8 items-start">
