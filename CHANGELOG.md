@@ -7,6 +7,13 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [2.1.1] — 2026-10-31
+
+### Modifié
+
+- Home / nav / `/docs` : versions **2.1**, PHP **8.3+**, install `astral:^2.1`, écosystème apps à jour
+- Backlog : **astral-worker** (queue) marqué implémenté — plus « Queue de tâches » à faire
+
 ## [2.1.0] — 2026-10-30
 
 ### Modifié

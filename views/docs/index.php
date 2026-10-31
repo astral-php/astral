@@ -159,26 +159,26 @@
                     (routeur, DI, auth, validateur, mailer, cache, CLI, error handler…) dans une architecture
                     simple à comprendre, à étendre et à tester.
                     <span class="block mt-1 text-xs text-indigo-200">
-                        Documentation à jour pour Astral MVC <strong>v2.0.0</strong>
-                        (<code class="text-indigo-100">astral-core</code> ^2.0 — PHP 8.3+, Role enum — apps starter / blog / <strong>shop</strong> encore sur ^1 jusqu’à migration).
+                        Documentation à jour pour Astral MVC <strong>v2.1.1</strong>
+                        (<code class="text-indigo-100">astral-core</code> ^2.1 — PHP 8.3+, Role enum — starter / forum / blog / shop alignés feuille 2.1).
                     </span>
                 </p>
             </div>
 
             <h2 class="text-xl font-bold text-gray-900 mb-3" id="intro-install">Installation rapide</h2>
             <p class="text-gray-600 text-sm mb-3">
-                Via Packagist (branche <strong>2.x</strong>, actuelle <strong>2.0.0</strong>) :
+                Via Packagist (branche <strong>2.x</strong>, actuelle <strong>2.1.1</strong>) :
             </p>
             <?php codeBlock('bash', <<<'CODE'
-composer create-project astral-php/astral:^1.2 mon-projet
+composer create-project astral-php/astral:^2.1 mon-projet
 cd mon-projet
 cp .env.example .env
 # éditer .env puis :
 php -S localhost:8080 -t public
 CODE) ?>
             <p class="text-gray-500 text-xs mt-3 mb-3">
-                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:2.0.0 mon-projet</code>
-                · Boutique : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral-shop ma_boutique</code>
+                Version exacte : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral:2.1.1 mon-projet</code>
+                · Boutique : <code class="bg-gray-100 px-1 rounded">composer create-project astral-php/astral-shop:^2.0 ma_boutique</code>
             </p>
             <p class="text-gray-600 text-sm mb-3">Depuis un clone Git :</p>
             <?php codeBlock('bash', <<<'CODE'
@@ -1328,7 +1328,7 @@ CODE) ?>
             <?php codeBlock('env', <<<'CODE'
 # Application
 APP_NAME="Mon Application"
-APP_VERSION=2.0.0
+APP_VERSION=2.1.1
 APP_ENV=development        # development | production
 APP_DEBUG=true             # true → stack trace 500 + dump utile en dev
 APP_TIMEZONE=Europe/Paris
@@ -2037,17 +2037,17 @@ CODE) ?>
                 Orientation produit :
                 les <strong>applications</strong> s’installent via <code>composer create-project</code>,
                 les <strong>composants</strong> via <code>composer require</code>,
-                la fondation partagée est <code class="bg-gray-100 px-1 rounded text-xs">astral-php/astral-core</code> <strong>2.0.0</strong>
+                la fondation partagée est <code class="bg-gray-100 px-1 rounded text-xs">astral-php/astral-core</code> <strong>2.1.0</strong>
                 (<a href="https://github.com/astral-php/astral-core" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">GitHub</a>).
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-sm">
                 <div class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
                     <p class="font-semibold text-indigo-800 mb-1">Applications</p>
-                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (démo) ; <strong>astral-starter</strong> ; <strong>astral-blog</strong> ; <strong>astral-shop</strong></p>
+                    <p class="text-xs text-indigo-700"><code>create-project</code> — <code>astral</code> (démo) ; <strong>astral-starter</strong> ; <strong>astral-forum</strong> ; <strong>astral-blog</strong> ; <strong>astral-shop</strong></p>
                 </div>
                 <div class="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
                     <p class="font-semibold text-emerald-800 mb-1">Core</p>
-                    <p class="text-xs text-emerald-700"><code>astral-core</code> <strong>2.0.0</strong> —
+                    <p class="text-xs text-emerald-700"><code>astral-core</code> <strong>2.1.0</strong> —
                         <a href="https://github.com/astral-php/astral-core" class="underline hover:text-emerald-900" target="_blank" rel="noopener">astral-php/astral-core</a></p>
                 </div>
                 <div class="rounded-xl border border-amber-100 bg-amber-50/50 p-4">
@@ -2145,7 +2145,7 @@ CODE) ?>
                 (idem pour <code>astral-vite</code>, <code>astral-utilities</code>, <code>astral-template</code>, <code>astral-auth-extra</code>,
                 <code>astral-extend-orm</code>, <code>astral-payment</code>, <code>astral-debug</code>),
                 puis enregistrement du <code>ServiceProvider</code> dans <code>config/dependencies.php</code>.
-                Tous ciblent <strong>PHP 8.1+</strong>. Validés en sandbox locale (MailPit / Stripe test).
+                Cible feuille 2.1 : <strong>PHP 8.3+</strong> / <code>astral-core:^2.1</code> pour le hub et les apps officielles (composants infra encore en migration P6). Validés en sandbox locale (MailPit / Stripe test).
             </p>
         </section>
 
@@ -2238,23 +2238,23 @@ composer run serve   # http://127.0.0.1:8083</code></pre>
                     ['✅', 'Events & Listeners',              'EventDispatcher synchrone : listen (classe/callable), dispatch, subscribe. UserRegistered → SendWelcomeEmail + LogUserActivity. UserLoggedIn → LogUserActivity.',                                         true,  'done'],
                     ['✅', 'Gestion des rôles admin',        'Admin\UserController, RoleChanged event, LogRoleChange listener. Interface /admin/users avec protections anti-lockout. Navigation admin dans la barre de nav.',                      true,  'done'],
                     ['✅', 'API REST JSON',                  'ApiResponse (enveloppe data/error/meta), AbstractApiController, CorsMiddleware, BearerTokenMiddleware. Routes /api/v1/*. Exemples : Article CRUD + Category.',                          true,  'done'],
-                    ['✅', 'ErrorHandler & dump/dd',         'v1.1.3 — handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). Compatibilité PHP 8.1 → 8.5.',                                                                                                  true,  'done'],
-                    ['✅', 'Écosystème astral-* (1.2.x)',   'Packagist : form, vite, utilities, template, auth-extra, extend-orm, payment, paypal, shipping, worker, testing, debug. PHP 8.1+.',                                                                                    true,  'done'],
-                    ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel Phase C.',                                                                                                                                true,  'done'],
-                    ['✅', 'astral-core (^2.0)',            'Package astral-php/astral-core 2.0 — PHP 8.3+, Role enum, Cache. Hub astral 2.0.0.',                                                                              true,  'done'],
-                    ['✅', 'astral-starter (app)',          '0.1.2 — create-project : auth, admin, layout simple. Packagist / GitHub.',                                                                                                                    true,  'done'],
-                    ['✅', 'astral-blog 1.0 (app)',         '1.0.2 — create-project (starter + métier blog). Packagist / GitHub.',                                                                                                                    true,  'done'],
-                    ['✅', 'astral-shop 1.5 (app)',         '1.5.0 — worker, cache, stock ; PayPal + shipping. Packagist.',                                                                                                  true,  'done'],
-                    ['✅', 'astral-paypal 0.1',             'Orders v2 create/capture/refund + webhook. Packagist.',                                                                                                  true,  'done'],
-                    ['✅', 'astral-shipping 0.5',           '0.5.3 — barèmes Colissimo/MR, limites transporteur, doc sandbox API.',                                                                                                  true,  'done'],
-                    ['✅', 'astral-extend-orm / payment / debug', 'Hub 1.2.5 : ORM 0.1.1, payment 0.1.2+, debug 0.1.0 — Packagist + sandbox (Stripe / MailPit).',                                                                                                                true,  'done'],
-                    ['✅', 'astral-testing 0.1',             'HttpTestCase, factories, fakes — Packagist. Hub 1.2.8.',                                                                                                  true,  'done'],
-                    ['📦', 'Queue de tâches',                'Traitement asynchrone via une table DB (envoi d\'emails, imports CSV…).',                                                                                                                                false, 'moyenne'],
+                    ['✅', 'ErrorHandler & dump/dd',         'Handlers globaux, pages 403/404/500 debug-aware, dump() / dd(). PHP 8.3+.',                                                                                                  true,  'done'],
+                    ['✅', 'Écosystème astral-*',           'Packagist : form, vite, utilities, template, auth-extra, extend-orm, payment, paypal, shipping, worker, testing, debug, cache, twide…',                                                                                    true,  'done'],
+                    ['✅', 'astral-auth-extra (0.1.0)',     'Throttling, remember-me, journal login. Package optionnel.',                                                                                                                                true,  'done'],
+                    ['✅', 'astral-core (^2.1)',            'Package astral-php/astral-core 2.1 — PHP 8.3+, Role enum, Cache. Hub astral 2.1.1.',                                                                              true,  'done'],
+                    ['✅', 'astral-starter (app)',          '2.1.x — create-project : auth, admin, UI nova-green. Packagist / GitHub.',                                                                                                                    true,  'done'],
+                    ['✅', 'astral-forum (app)',            '0.1.x — forums, sujets, FAQ, UI nova-maroon. Packagist / GitHub.',                                                                                                                    true,  'done'],
+                    ['✅', 'astral-blog (app)',             '2.0.x — create-project blog, UI nova-orange. Packagist / GitHub.',                                                                                                                    true,  'done'],
+                    ['✅', 'astral-shop (app)',             '2.0.0 — worker, cache, stock ; PayPal + shipping ; UI nova-indigo. Packagist.',                                                                                                  true,  'done'],
+                    ['✅', 'astral-paypal / shipping',      'PayPal Orders v2 · shipping barèmes Colissimo/MR (packages dédiés).',                                                                                                  true,  'done'],
+                    ['✅', 'astral-extend-orm / payment / debug', 'ORM léger, Stripe payment, debug — Packagist + sandbox (Stripe / MailPit).',                                                                                                                true,  'done'],
+                    ['✅', 'astral-testing 0.1',             'HttpTestCase, factories, fakes — Packagist.',                                                                                                  true,  'done'],
+                    ['✅', 'astral-worker (queue)',          'Package astral-php/astral-worker — file DB/Redis/sync, jobs mail/PDF, CLI worker:work (utilisé par astral-shop).',                                                                                                                                true,  'done'],
                     ['🌍', 'Internationalisation',            'Système i18n minimaliste avec fichiers de traduction PHP/JSON, locale par session.',                                                                                                                     false, 'moyenne'],
                     ['📊', 'Dashboard admin',                'Interface back-office générique (liste des entités, statistiques, gestion des rôles).',                                                                                                                   false, 'moyenne'],
                     ['🔒', 'OAuth / Social login',           'Connexion via Google/GitHub grâce à un adapter léger (ex. league/oauth2-client).',                                                                                                                       false, 'basse'],
                     ['🔌', 'WebSockets',                     'Temps réel via Ratchet ou Swoole — sort volontairement du minimalisme du framework.',                                                                                                                    false, 'basse'],
-                    ['✅', 'ORM léger — Relations',           'hasMany() + belongsTo() dans AbstractDao. Exemples : CategoryDao, ArticleDao (has-many + belongs-to). Migrations fournies. Philosophie : pas de lazy-loading, relations explicites.',      true,  'done'],
+                    ['✅', 'ORM léger — Relations',           'hasMany() + belongsTo() dans AbstractDao. Exemples : CategoryDao, ArticleDao. Philosophie : pas de lazy-loading, relations explicites.',      true,  'done'],
                     ['✅', 'Assets pipeline (Vite)',        'Via le package optionnel astral-vite : Vite, Tailwind, manifest, stubs.',                                                                                                                                     true,  'done'],
                 ];
 

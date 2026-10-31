@@ -2,7 +2,7 @@
     "name": "astral-php/astral",
     "description": "Astral MVC — Framework PHP 8.3+ minimaliste, moderne et orienté objet",
     "type": "project",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "license": "MIT",
     "keywords": ["php", "mvc", "framework", "microframework", "di", "psr"],
     "homepage": "https://github.com/astral-php/astral",

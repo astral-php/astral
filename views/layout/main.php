@@ -30,7 +30,7 @@
                     <span class="bg-white/20 rounded-lg px-2 py-0.5 text-sm font-mono">✦</span>
                     Astral MVC
                     <span class="text-[11px] font-semibold font-mono tracking-wide bg-white/15 text-indigo-100 border border-white/20 rounded-full px-2 py-0.5 leading-none">
-                        v<?= htmlspecialchars($appVersion ?? '2.0.0', ENT_QUOTES, 'UTF-8') ?>
+                        v<?= htmlspecialchars($appVersion ?? '2.1.1', ENT_QUOTES, 'UTF-8') ?>
                     </span>
                 </a>
 

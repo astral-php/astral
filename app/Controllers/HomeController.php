@@ -20,7 +20,7 @@ final class HomeController extends AbstractController
     public function __construct(
         View              $view,
         private UserDao   $userDao,
-        private string    $version = '2.0.0',
+        private string    $version = '2.1.1',
     ) {
         parent::__construct($view);
     }
@@ -29,7 +29,7 @@ final class HomeController extends AbstractController
     {
         return $this->render('home/index', [
             'title'    => 'Astral MVC',
-            'message'  => 'Framework PHP 8.1+ minimaliste avec DI, migrations, scaffolding, events, error handler et auth prête à l’emploi.',
+            'message'  => 'Framework PHP 8.3+ minimaliste avec DI, migrations, scaffolding, events, error handler et auth prête à l’emploi.',
             'version'  => $this->version,
             'hasUsers' => $this->userDao->count() > 0,
         ]);
